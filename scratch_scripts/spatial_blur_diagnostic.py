@@ -33,7 +33,7 @@ from scipy.sparse import coo_matrix, triu
 
 
 DEFAULT_PREDICTIONS = (
-    "/home/svu/e1032484/DIMON_learn/Geo_DONet/Predictions/"
+    "/home/svu/e1032484/Geo_DONet/Geo_DONet/Predictions/"
     "geodonet_w300_d4_5000ep_lrsched/predictions.npz"
 )
 DEFAULT_MESH = "/home/svu/e1032484/scratch/canonical.vtu"

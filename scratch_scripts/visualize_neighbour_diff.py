@@ -27,7 +27,7 @@ OUTPUTS (under --out-dir/<case>/), all plain .vtu / .png:
 
 RUN (CPU is fine, no torch):
     source ~/load_dimon_env.sh
-    cd ~/DIMON_learn
+    cd ~/Geo_DONet
     python scratch_scripts/visualize_neighbour_diff.py --heart 0
     # high-res 1 ms:   --data-file geo_donet_data_f601.npz
     # every frame:     --vtu-stride 1

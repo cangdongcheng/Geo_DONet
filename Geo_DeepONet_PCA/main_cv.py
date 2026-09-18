@@ -21,7 +21,7 @@ import numpy as np
 import torch
 
 from main import physical_features, sampled_vm_target, set_seed, tensor
-from opnn import FeatureDeepONet
+from opnn import build_feature_model
 from utils import (DifferentiablePhaseDecoder, activation_time, at_metrics,
                    decode_features, median_max_dvdt, shift_waveforms,
                    vm_metrics)
@@ -33,9 +33,11 @@ N_FOLDS, N_VAL = 5, 5
 AT_THRESHOLD = -10.0
 
 
-def parse_args():
+def parse_args(default_architecture="deeponet"):
     parser = argparse.ArgumentParser(
-        description="Five-fold CV for decoded-V_m-supervised Geo-DeepONet-PCA")
+        description="Five-fold CV for decoded-V_m-supervised AT/PCA prediction")
+    parser.add_argument("--architecture", choices=("deeponet", "mlp"),
+                        default=default_architecture)
     parser.add_argument("--data", default=FEATURE_DATA,
                         help="compact archive; AT is reused but PCA targets are refit per fold")
     parser.add_argument("--vm-data", default=VM_DATA)
@@ -212,7 +214,7 @@ def fold_vm_scale(vm, train_idx):
     return float(np.sqrt(variance))
 
 
-def save_loss_plot(rows, path, fold):
+def save_loss_plot(rows, path, fold, model_label="Geo_DeepONet_PCA"):
     values = np.asarray(rows, dtype=np.float64)
     figure, axes = plt.subplots(1, 2, figsize=(11, 4.3))
     axes[0].semilogy(values[:, 0], values[:, 1], label="train V_m")
@@ -224,7 +226,7 @@ def save_loss_plot(rows, path, fold):
     axes[1].set_ylabel("normalized AT MSE (diagnostic only)")
     for axis in axes:
         axis.set_xlabel("epoch"); axis.grid(alpha=0.3); axis.legend()
-    figure.suptitle(f"Geo_DeepONet_PCA CV fold {fold}")
+    figure.suptitle(f"{model_label} CV fold {fold}")
     figure.tight_layout(); figure.savefig(path, dpi=150); plt.close(figure)
 
 
@@ -261,8 +263,10 @@ def train_fold(fold, train_idx, val_idx, theta, coords, at_all, vm, basis,
     target_mean_t = tensor(target_mean, device).view(1, 1, -1)
     target_std_t = tensor(target_std, device).view(1, 1, -1)
     decoder = DifferentiablePhaseDecoder(basis, args.n_components).to(device)
-    model = FeatureDeepONet(theta.shape[1], coords.shape[1], args.width,
-                            args.depth, args.n_components + 1).to(device)
+    model = build_feature_model(dict(
+        architecture=args.architecture, geo_dim=theta.shape[1],
+        coord_dim=coords.shape[1], width=args.width, depth=args.depth,
+        output_dim=args.n_components + 1)).to(device)
     optimizer = torch.optim.Adam(model.parameters(), lr=args.lr)
     n_params = sum(parameter.numel() for parameter in model.parameters())
 
@@ -353,7 +357,8 @@ def train_fold(fold, train_idx, val_idx, theta, coords, at_all, vm, basis,
                       f"best {best_val:.6f}@{best_epoch} | eta {eta / 60:.1f} min",
                       flush=True)
 
-    save_loss_plot(rows, os.path.join(fold_dir, "loss.png"), fold)
+    model_label = "Geo_MLP_PCA" if args.architecture == "mlp" else "Geo_DeepONet_PCA"
+    save_loss_plot(rows, os.path.join(fold_dir, "loss.png"), fold, model_label)
     return checkpoint_path, best_val, best_epoch, (time.time() - fold_start) / 60
 
 
@@ -372,7 +377,7 @@ def oracle_pca_mae(predicted_coefficients, aligned_truth, basis, chunk_nodes):
 def evaluate_fold(fold, test_idx, theta, coords, at_all, vm, aligned, time_ms,
                   case_names, basis, checkpoint_path, args, fold_dir, device):
     checkpoint = torch.load(checkpoint_path, map_location=device, weights_only=False)
-    model = FeatureDeepONet(**checkpoint["config"]).to(device)
+    model = build_feature_model(checkpoint["config"]).to(device)
     model.load_state_dict(checkpoint["model_state_dict"]); model.eval()
     coords_norm = ((coords - checkpoint["coord_min"]) /
                    (checkpoint["coord_max"] - checkpoint["coord_min"] + 1e-8))
@@ -452,8 +457,8 @@ def save_summary_plot(fold_results, path):
     figure.tight_layout(); figure.savefig(path, dpi=150); plt.close(figure)
 
 
-def main():
-    args = parse_args(); validate_args(args); set_seed(args.seed)
+def main(default_architecture="deeponet"):
+    args = parse_args(default_architecture); validate_args(args); set_seed(args.seed)
     device = torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
 
     compact = np.load(args.data, allow_pickle=True)
@@ -478,12 +483,17 @@ def main():
 
     default_dir = (f"CV_{args.folds}fold_{args.epochs}ep_w{args.width}_d{args.depth}_"
                    f"n{args.nodes_per_step}_f{len(time_ms)}_vmloss")
+    # Keep historical DeepONet output names; distinguish MLP even when launched
+    # directly from this directory rather than the Geo_MLP_PCA entry point.
+    if args.architecture == "mlp":
+        default_dir += "_mlp"
     out_dir = args.out_dir or default_dir
     os.makedirs(out_dir, exist_ok=True)
     print(f"output: {out_dir}")
     print(f"data: {len(theta)} hearts, {len(coords)} nodes, {len(time_ms)} frames")
     print(f"protocol: {args.folds} folds; 95 fit / {args.n_val} val / "
           f"{len(theta) // args.folds} test; no early stopping")
+    print(f"architecture: {args.architecture}")
     print(f"training: {args.epochs} epochs/fold, batch {args.batch_size}, "
           f"nodes {args.nodes_per_step}, lr {args.lr:g} | {device}")
 
@@ -529,8 +539,9 @@ def main():
                               for fold, result in enumerate(fold_results)])
     total_minutes = (time.time() - total_start) / 60
 
+    model_label = "Geo_MLP_PCA" if args.architecture == "mlp" else "Geo_DeepONet_PCA"
     lines = ["=" * 72,
-             f"Geo_DeepONet_PCA {args.folds}-fold pooled (N={len(all_test_idx)} hearts)",
+             f"{model_label} {args.folds}-fold pooled (N={len(all_test_idx)} hearts)",
              "Fold-specific train-only decoder basis and normalization",
              f"V_m Rel L2       : {stat(pooled['vm_l2'])}",
              f"V_m MAE          : {stat(pooled['vm_mae'], 3)} mV",

@@ -13,7 +13,7 @@
 # by default, so f121 fits the 48 GB A40 with room to spare.
 
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/Geo_DONet_SIREN
+cd /home/svu/e1032484/Geo_DONet/Geo_DONet_SIREN
 
 echo "=== START $(date) ==="
 echo "node: $(hostname)"

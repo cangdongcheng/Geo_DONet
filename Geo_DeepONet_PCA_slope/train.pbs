@@ -1,0 +1,27 @@
+#!/bin/bash
+#PBS -N Geo_DeepONet_PCA_slope
+#PBS -l select=1:ncpus=8:ngpus=1:mem=64gb
+#PBS -l walltime=01:00:00
+#PBS -j oe
+#
+# Prepare compact targets first. Submit from Geo_DeepONet_PCA_slope/.
+
+source ~/load_dimon_env.sh
+cd /home/svu/e1032484/Geo_DONet/Geo_DeepONet_PCA_slope
+
+echo "=== START $(date) ==="
+echo "node: $(hostname)"
+nvidia-smi
+
+python -u main.py \
+    --device cuda \
+    --epochs 5000 \
+    --batch-size 8 \
+    --nodes-per-step 2048 \
+    --val-nodes 4096 \
+    --n-components 8 \
+    --width 200 \
+    --depth 4 \
+    --lr 5e-4
+
+echo "=== DONE $(date) ==="

@@ -27,7 +27,7 @@ OUTPUTS (under --out-dir/pred_<case>/):
 
 RUN:
     source ~/load_dimon_env.sh
-    cd ~/DIMON_learn
+    cd ~/Geo_DONet
     python scratch_scripts/compare_pred_neighbour_diff.py --heart 100
     # --heart is the GLOBAL index 0..124 (same convention as the GT script);
     # predictions exist only for the 25 TEST hearts = global 100..124.
@@ -44,7 +44,7 @@ import meshio
 from visualize_neighbour_diff import build_edges, compute_fields
 
 SCRATCH = os.environ.get("DIMON_DATA_BASE", "/home/svu/e1032484/scratch")
-DEFAULT_PRED = ("/home/svu/e1032484/DIMON_learn/Geo_DONet/Predictions/"
+DEFAULT_PRED = ("/home/svu/e1032484/Geo_DONet/Geo_DONet/Predictions/"
                 "geo_donet_5000ep_w300_lrsched/Test/test_predictions.npz")
 
 

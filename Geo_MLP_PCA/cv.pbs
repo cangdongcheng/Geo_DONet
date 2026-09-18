@@ -1,0 +1,18 @@
+#!/bin/bash
+#PBS -N Geo_MLP_PCA_CV
+#PBS -l select=1:ncpus=16:ngpus=1:mem=96gb
+#PBS -l walltime=04:00:00
+#PBS -j oe
+
+source /home/svu/e1032484/load_dimon_env.sh
+set -e
+cd /home/svu/e1032484/Geo_DONet/Geo_MLP_PCA
+export OMP_NUM_THREADS=16
+export MKL_NUM_THREADS=16
+export OPENBLAS_NUM_THREADS=16
+
+python -u main_cv.py \
+    --device cuda --epochs 5000 \
+    --width 200 --depth 4 --n-components 5 \
+    --batch-size 8 --nodes-per-step 2048 --val-nodes 4096 \
+    --lr 5e-4 --val-every 10 --reference-at 80 --seed 42

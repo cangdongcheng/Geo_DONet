@@ -1,0 +1,25 @@
+#!/bin/bash
+#PBS -N Geo_DONet_modes
+#PBS -l select=1:ncpus=8:ngpus=1:mem=32gb
+#PBS -l walltime=01:00:00
+#PBS -j oe
+#
+# Submit from Geo_DONet/: qsub latent_modes.pbs
+
+source ~/load_dimon_env.sh
+cd /home/svu/e1032484/Geo_DONet/Geo_DONet
+
+echo "=== START $(date) ==="
+echo "node: $(hostname)"
+nvidia-smi
+
+python -u analyze_latent_modes.py \
+    --device cuda \
+    --model-path CheckPts/geodonet_w300_d4_5000ep_lrsched.pt \
+    --data-path /home/svu/e1032484/scratch/geo_donet_data_f601.npz \
+    --frame-step 5 \
+    --cases train \
+    --chunk-frames 5 \
+    --mode-profiles 6
+
+echo "=== DONE $(date) ==="

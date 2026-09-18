@@ -18,7 +18,7 @@
 # NB: NO `set -e` -- load_dimon_env.sh's initial conda deactivate may return 1.
 
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/scratch_scripts
+cd /home/svu/e1032484/Geo_DONet/scratch_scripts
 
 STEP=${STEP:-1}
 TAG=$([ "$STEP" = 1 ] && echo f601 || ([ "$STEP" = 2 ] && echo f301 || echo f121))

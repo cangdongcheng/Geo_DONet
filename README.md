@@ -1,4 +1,15 @@
-# DIffeomorphic-Mapping Operator learNing (DIMON)
+# Geo_DONet
+
+Geometry-conditioned cardiac electrophysiology surrogates: DeepONet and MLP
+models for activation time and transmembrane potential, including phase-aligned
+PCA waveform decoders. This project developed from the DIMON framework; the
+upstream description and attribution are retained below.
+
+Local project root: `/home/svu/e1032484/Geo_DONet` (also mounted under `/nfs/home/`).
+The former `DIMON_learn` path is a compatibility symlink to this directory.
+The original Vm benchmark remains in the `Geo_DONet/` subfolder.
+
+## Upstream DIMON framework
 
 We introduce a neural operator framework, named **DIffeomorphic Mapping Operator learNing (DIMON)**, which allows AI to learn geometry-dependent solution operators of different types of PDEs on a wide variety of geometries. Nature Computational Science: https://www.nature.com/articles/s43588-024-00732-2
 

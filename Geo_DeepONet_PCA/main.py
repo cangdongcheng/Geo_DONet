@@ -11,7 +11,7 @@ import matplotlib.pyplot as plt
 import numpy as np
 import torch
 
-from opnn import FeatureDeepONet, initialise_from_at_checkpoint
+from opnn import build_feature_model, initialise_from_at_checkpoint
 from utils import (DifferentiablePhaseDecoder, FeatureNormalizer, activation_time,
                    at_metrics, decode_features, load_decoder_basis,
                    load_feature_data, median_max_dvdt, split_indices, to_numpy,
@@ -24,9 +24,11 @@ VM_DATA = "/home/svu/e1032484/scratch/geo_donet_data_f601.npz"
 N_TRAIN, N_VAL = 95, 5
 
 
-def parse_args():
+def parse_args(default_architecture="deeponet", default_patience=1000):
     parser = argparse.ArgumentParser(
-        description="Geo-DeepONet: AT/PCA outputs supervised through decoded V_m")
+        description="Geometry-conditioned AT/PCA outputs supervised through decoded V_m")
+    parser.add_argument("--architecture", choices=("deeponet", "mlp"),
+                        default=default_architecture)
     parser.add_argument("--test-model", action="store_true")
     parser.add_argument("--data", default=DATA, help="compact output from prepare_data.py")
     parser.add_argument("--basis", default=BASIS, help="phase-aligned decoder basis")
@@ -58,7 +60,7 @@ def parse_args():
     parser.add_argument("--n-val", type=int, default=N_VAL)
     parser.add_argument("--val-every", type=int, default=10)
     parser.add_argument("--print-every", type=int, default=100)
-    parser.add_argument("--patience", type=int, default=1000,
+    parser.add_argument("--patience", type=int, default=default_patience,
                         help="early-stop epochs without val improvement; 0 disables")
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--device", default=None, help="default: cuda when available")
@@ -82,7 +84,8 @@ def tensor(array, device):
 
 
 def default_stem(args):
-    return (f"geodeeponet_pca_vmloss_k{args.n_components}_w{args.width}_d{args.depth}_"
+    prefix = "geomlp" if args.architecture == "mlp" else "geodeeponet"
+    return (f"{prefix}_pca_vmloss_k{args.n_components}_w{args.width}_d{args.depth}_"
             f"n{args.nodes_per_step}_{args.epochs}ep")
 
 
@@ -169,6 +172,8 @@ def sampled_vm_target(vm, case_indices, node_indices, device):
 
 
 def train(args, device):
+    if args.architecture == "mlp" and args.init_at_checkpoint:
+        raise SystemExit("--init-at-checkpoint requires the DeepONet architecture")
     data = load_inputs(args)
     theta, coords, targets = data["theta"], data["coords"], data["targets"]
     train_idx, val_idx, _ = split_indices(len(theta), args.n_train, args.n_val)
@@ -205,8 +210,10 @@ def train(args, device):
         make_loss_weights(args, device)
     decoder = DifferentiablePhaseDecoder(basis, args.n_components).to(device)
 
-    model = FeatureDeepONet(theta.shape[1], coords.shape[1], args.width, args.depth,
-                            targets.shape[2]).to(device)
+    model = build_feature_model(dict(
+        architecture=args.architecture, geo_dim=theta.shape[1],
+        coord_dim=coords.shape[1], width=args.width, depth=args.depth,
+        output_dim=targets.shape[2])).to(device)
     if args.init_at_checkpoint:
         copied = initialise_from_at_checkpoint(model, args.init_at_checkpoint, device)
         print(f"transferred {copied} branch/trunk tensors from {args.init_at_checkpoint}")
@@ -360,7 +367,7 @@ def evaluate(args, device):
         args.model_path = os.path.join("CheckPts", default_stem(args) + ".pt")
     raw_checkpoint = torch.load(args.model_path, map_location=device)
     config = raw_checkpoint["config"]
-    model = FeatureDeepONet(**config).to(device)
+    model = build_feature_model(config).to(device)
     model.load_state_dict(raw_checkpoint["model_state_dict"]); model.eval()
     normalizer = FeatureNormalizer.from_state(raw_checkpoint["normalizer"])
     data = load_feature_data(args.data)
@@ -458,8 +465,8 @@ def evaluate(args, device):
     emit(f"outputs -> {out_dir}")
 
 
-def main():
-    args = parse_args(); set_seed(args.seed)
+def main(default_architecture="deeponet", default_patience=1000):
+    args = parse_args(default_architecture, default_patience); set_seed(args.seed)
     device = torch.device(args.device or ("cuda" if torch.cuda.is_available() else "cpu"))
     if args.test_model:
         evaluate(args, device)

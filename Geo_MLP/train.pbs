@@ -7,7 +7,7 @@
 # Submit from Geo_MLP/: qsub train.pbs
 
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/Geo_MLP
+cd /home/svu/e1032484/Geo_DONet/Geo_MLP
 
 echo "=== START $(date) ==="
 echo "node: $(hostname)"

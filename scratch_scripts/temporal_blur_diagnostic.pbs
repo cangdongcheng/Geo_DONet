@@ -9,7 +9,7 @@
 # No `set -e`: load_dimon_env.sh may return status 1 while deactivating conda.
 
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/scratch_scripts
+cd /home/svu/e1032484/Geo_DONet/scratch_scripts
 
 echo "=== START $(date) ==="
 echo "node: $(hostname)"

@@ -1,9 +1,26 @@
-# DIMON_learn on Vanda — handoff
+# Geo_DONet on Vanda — handoff
+
+> **2026-09-19 — local project rename.** The root directory is now
+> `/home/svu/e1032484/Geo_DONet` (equivalent `/nfs/home/svu/e1032484/Geo_DONet`).
+> `DIMON_learn` remains a symlink for existing checkpoint paths and IDE sessions.
+> Active scripts/PBS files use the new root. The original benchmark is therefore
+> at `Geo_DONet/Geo_DONet/`; experiment subfolders were not renamed. Historical
+> output logs and binary artifacts retain their original paths. Git history and
+> existing uncommitted changes were preserved. GitHub rename is pending
+> authenticated repository-admin access; origin still points to the old name.
 
 Temporary working copy while NSCC is down (started 2026-05-29).
 Native home is NSCC `BASE/cardiac_simulation/DIMON/` (user `e1590340`).
 Active variants: **Geo_DONet** (clean rewrite), **Geo_DONet_SIREN**, **Geo_DONet_ndiff**,
-**Geo_DONet_overfit** (single-case capacity test).
+**Geo_DONet_overfit** (single-case capacity test), **Geo_DeepONet_PCA**, and **Geo_MLP**.
+
+> **2026-08-12 — phase-aligned decoder + architecture-ablation update.** Later work moved from
+> changing the Geo_DONet trunk toward separating activation time from waveform shape. The f601
+> phase-aligned oracle is extremely accurate, and training AT + five PCA features through the
+> differentiable V_m decoder substantially improves global V_m/AT metrics. It still produces a
+> very smooth upstroke. A conditional MLP looked better on one fixed split but lost that advantage
+> under five-fold CV. See **August 2026 progress** below; it supersedes older open-item language
+> where the corresponding experiment is now complete.
 
 > **2026-06-03 — Geo_DONet is now a clean rewrite.** The original messy `Geo_DONet/` was
 > deleted and replaced by the from-scratch clean version (formerly `Geo_DONet_clean/`). It is a
@@ -36,6 +53,94 @@ Active variants: **Geo_DONet** (clean rewrite), **Geo_DONet_SIREN**, **Geo_DONet
 > signed-Laplacian spatial loss). The enabling discovery — `canonical.vtu` is the mesh in
 > Vm node order, `reference.vtu` is NOT — is in the **Mesh node order** section below.
 > Read it before any edge/adjacency/gradient work.
+
+## August 2026 progress
+
+### Phase-aligned PCA oracle
+
+Scripts: `scratch_scripts/phase_aligned_pca_analysis.py` and `phase_aligned_pca.pbs`.
+The decoder aligns every node waveform by its -10 mV activation time, subtracts a node-specific
+lookup template, and applies PCA to the remaining waveform residual. Basis:
+`~/scratch/pca_phase_aligned_basis_f601.npz`.
+
+On the held-out 25 hearts at f601:
+
+| decoder | aligned cum. EVR | V_m Rel L2 | V_m MAE | upstroke fraction |
+|---|---:|---:|---:|---:|
+| K=1 | 0.6185 | 0.0152 | 0.094 mV | 0.817 |
+| K=5 | 0.9706 | 0.0139 | 0.080 mV | 0.822 |
+| K=10 | 0.9976 | 0.0138 | 0.067 mV | 0.822 |
+| shift round-trip floor | — | 0.0138 | 0.058 mV | 0.822 |
+
+Thus five modes are a reasonable compact decoder; its oracle error is negligible compared with
+the learned surrogate. The nonzero floor comes mainly from shifting/interpolation, not PCA.
+
+### Geo_DeepONet_PCA waveform-loss run
+
+Folder: `Geo_DeepONet_PCA/`. Compact features:
+`~/scratch/geo_deeponet_pca_f601_k5.npz`. The network predicts
+`[AT, PC1, ..., PC5]`, decodes all 601 time values differentiably, and minimizes normalized V_m
+MSE. The run used width 200, depth 4, Adam 5e-4, batch 8 hearts, 2,048 random nodes/step, fixed
+4,096-node validation, and `feature_loss_weight=0`; `ATdiag` and `PCAdiag` are logs only.
+
+Checkpoint: `Geo_DeepONet_PCA/CheckPts/geodeeponet_pca_vmloss_k5_w200_d4_n2048_5000ep.pt`.
+Fixed-split test result:
+
+| metric | mean +/- std |
+|---|---:|
+| decoded V_m Rel L2 | 0.13385 +/- 0.01898 |
+| decoded V_m MAE | **1.887 +/- 0.380 mV** |
+| direct predicted AT MAE | **4.504 +/- 1.066 ms** |
+| AT re-extracted from decoded V_m | 4.533 +/- 1.045 ms |
+| decoded max-dV/dt fraction | **0.330 +/- 0.006** |
+
+The V_m and AT metrics are much better than the f121 Geo_DONet fixed-split benchmark
+(4.73 mV / about 6.03 ms), but the upstroke fraction is much worse than the oracle's 0.822.
+Large individual PCA-coordinate errors are not contradictory: with no direct feature loss, AT
+and coefficients can trade off under the decoder, so the feature representation is not uniquely
+identified. Judge this run primarily by decoded V_m, AT, and dV/dt.
+
+The matched old `Geo_DeepONet/` AT-only run (width 200, depth 4, 5,000 epochs) gives
+AT Rel L2 **0.1116 +/- 0.0203** and MAE **7.28 +/- 1.80 ms**. Both it and the PCA run use Adam
+at **5e-4**, but this is not a controlled loss-only ablation: the old default batch of 96 covers
+all 95 training hearts in one optimizer update/epoch, while the PCA run uses about 12 updates/
+epoch, spatial sampling, a six-output learned head, and waveform-space checkpoint selection.
+Also note that `Geo_DeepONet` default checkpoint/output names omit width, depth, and batch size;
+pass an explicit `--ckpt-path` to avoid silently overwriting runs.
+
+### Blur diagnostics
+
+Scripts: `scratch_scripts/temporal_blur_diagnostic.py` and
+`scratch_scripts/spatial_blur_diagnostic.py`. Both compare smoothed ground truth against the same
+clean Geo_DONet prediction; smoothing is applied to GT only.
+
+- Temporal, all 25 test hearts: baseline 4.728 mV. Sigma 7.5 ms gives the best MAE
+  (4.191 mV, **11.35% improvement**); sigma 10 ms is best by MSE.
+- Spatial, first test heart only: baseline 5.197 mV. Repeated neighbour relaxation with alpha
+  0.5 is best by MAE at 16 passes (4.214 mV, **18.92% improvement**); 32 passes is best by MSE.
+- The different 4.728 and 5.197 baselines are expected: the temporal table aggregates all 25
+  hearts, while the recorded spatial table is one heart. A 25-heart spatial mode was added for a
+  like-for-like aggregate comparison, but no completed batch summary is currently recorded here.
+- `total absolute error` in these summaries is a raw sum over every included case/node/time
+  sample, not an average; use MAE for comparisons across differently sized runs.
+
+The diagnostics support both spatial and temporal smoothing, but because even strong blur closes
+only part of the error, they do not prove that blur is the only failure mode.
+
+### Conditional MLP ablation
+
+`Geo_MLP/` takes `[60 geometry PCA, 4 Cobiveco, normalized time]` and directly predicts V_m with
+one Tanh MLP. It is a pointwise conditional MLP, not a literal 60-to-(nodes x times) dense output.
+
+| protocol | V_m Rel L2 | V_m MAE | interpolated AT MAE |
+|---|---:|---:|---:|
+| fixed 95/5/25 split | 0.1719 +/- 0.0311 | **3.82 +/- 0.94 mV** | 6.33 +/- 1.84 ms |
+| five-fold pooled, all 125 hearts | 0.2080 +/- 0.0926 | **5.09 +/- 3.70 mV** | 8.41 +/- 5.45 ms |
+| Geo_DONet five-fold reference | 0.1534 +/- 0.0235 | **4.64 +/- 1.61 mV** | 6.03 +/- 1.23 ms |
+
+The MLP beat Geo_DONet on the original fixed split, but not in pooled five-fold CV. Its much larger
+fold/case variance means the fixed split was optimistic. Do not claim a general architectural
+advantage from the single-split result.
 
 ## Environment
 

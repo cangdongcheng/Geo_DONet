@@ -5,7 +5,7 @@
 #PBS -j oe
 
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/Geo_DONet_ndiff
+cd /home/svu/e1032484/Geo_DONet/Geo_DONet_ndiff
 
 echo "=== START $(date) ==="
 echo "Node: $(hostname)"

@@ -33,3 +33,480 @@ Thu Aug 13 02:20:09 2026
 |  No running processes found                                                             |
 +-----------------------------------------------------------------------------------------+
 loading raw V_m: /home/svu/e1032484/scratch/geo_donet_data_f601.npz
+output: CV_5fold_5000ep_w200_d4_n2048_f601_vmloss
+data: 125 hearts, 50797 nodes, 601 frames
+protocol: 5 folds; 95 fit / 5 val / 25 test; no early stopping
+training: 5000 epochs/fold, batch 8, nodes 2048, lr 0.0005 | cuda
+aligning 125 hearts once at fixed reference 80 ms ...
+  alignment  10/125 | elapsed 0.1 min | eta 1.3 min
+  alignment  20/125 | elapsed 0.2 min | eta 1.2 min
+  alignment  30/125 | elapsed 0.3 min | eta 1.1 min
+  alignment  40/125 | elapsed 0.4 min | eta 1.0 min
+  alignment  50/125 | elapsed 0.6 min | eta 0.8 min
+  alignment  60/125 | elapsed 0.7 min | eta 0.7 min
+  alignment  70/125 | elapsed 0.8 min | eta 0.6 min
+  alignment  80/125 | elapsed 0.9 min | eta 0.5 min
+  alignment  90/125 | elapsed 1.0 min | eta 0.4 min
+  alignment 100/125 | elapsed 1.1 min | eta 0.3 min
+  alignment 110/125 | elapsed 1.2 min | eta 0.2 min
+  alignment 120/125 | elapsed 1.3 min | eta 0.1 min
+  alignment 125/125 | elapsed 1.4 min | eta 0.0 min
+building shared temporal sufficient statistics ...
+  scatter     5/125 | elapsed 0.0 min | eta 0.3 min
+  scatter    10/125 | elapsed 0.0 min | eta 0.3 min
+  scatter    15/125 | elapsed 0.0 min | eta 0.2 min
+  scatter    20/125 | elapsed 0.0 min | eta 0.2 min
+  scatter    25/125 | elapsed 0.1 min | eta 0.2 min
+  scatter    30/125 | elapsed 0.1 min | eta 0.2 min
+  scatter    35/125 | elapsed 0.1 min | eta 0.2 min
+  scatter    40/125 | elapsed 0.1 min | eta 0.2 min
+  scatter    45/125 | elapsed 0.1 min | eta 0.2 min
+  scatter    50/125 | elapsed 0.1 min | eta 0.2 min
+  scatter    55/125 | elapsed 0.1 min | eta 0.2 min
+  scatter    60/125 | elapsed 0.1 min | eta 0.1 min
+  scatter    65/125 | elapsed 0.1 min | eta 0.1 min
+  scatter    70/125 | elapsed 0.2 min | eta 0.1 min
+  scatter    75/125 | elapsed 0.2 min | eta 0.1 min
+  scatter    80/125 | elapsed 0.2 min | eta 0.1 min
+  scatter    85/125 | elapsed 0.2 min | eta 0.1 min
+  scatter    90/125 | elapsed 0.2 min | eta 0.1 min
+  scatter    95/125 | elapsed 0.2 min | eta 0.1 min
+  scatter   100/125 | elapsed 0.2 min | eta 0.1 min
+  scatter   105/125 | elapsed 0.2 min | eta 0.0 min
+  scatter   110/125 | elapsed 0.2 min | eta 0.0 min
+  scatter   115/125 | elapsed 0.3 min | eta 0.0 min
+  scatter   120/125 | elapsed 0.3 min | eta 0.0 min
+  scatter   125/125 | elapsed 0.3 min | eta 0.0 min
+
+=== fold 0: 95 fit / 5 val / 25 test ===
+  PCA EVR: PC1=0.6677, PC2=0.2310, PC3=0.0477, PC4=0.0192, PC5=0.0140
+  model: w200 d4, 255,606 params; V_m scale 50.961 mV
+  target std: AT=29.59, PC1=10.44, PC2=6.143, PC3=2.791, PC4=1.769, PC5=1.512
+  fold 0 epoch    0/5000 | train Vm 0.249684 ATdiag 0.99247 | val Vm 0.214478 ATdiag 0.77307 | best 0.214478@0 | eta 116.1 min
+  fold 0 epoch  100/5000 | train Vm 0.032842 ATdiag 0.05279 | val Vm 0.036722 ATdiag 0.05689 | best 0.036722@100 | eta 18.2 min
+  fold 0 epoch  200/5000 | train Vm 0.025851 ATdiag 0.03536 | val Vm 0.029279 ATdiag 0.04171 | best 0.029279@200 | eta 17.4 min
+  fold 0 epoch  300/5000 | train Vm 0.023302 ATdiag 0.02999 | val Vm 0.029292 ATdiag 0.04116 | best 0.028221@240 | eta 16.8 min
+  fold 0 epoch  400/5000 | train Vm 0.021896 ATdiag 0.02744 | val Vm 0.028022 ATdiag 0.03856 | best 0.027028@370 | eta 16.4 min
+  fold 0 epoch  500/5000 | train Vm 0.020325 ATdiag 0.02447 | val Vm 0.028134 ATdiag 0.03908 | best 0.027028@370 | eta 16.0 min
+  fold 0 epoch  600/5000 | train Vm 0.019922 ATdiag 0.02369 | val Vm 0.029123 ATdiag 0.04069 | best 0.027028@370 | eta 15.6 min
+  fold 0 epoch  700/5000 | train Vm 0.020230 ATdiag 0.02409 | val Vm 0.031514 ATdiag 0.04547 | best 0.027028@370 | eta 15.2 min
+  fold 0 epoch  800/5000 | train Vm 0.019014 ATdiag 0.02202 | val Vm 0.027126 ATdiag 0.03709 | best 0.026544@730 | eta 14.9 min
+  fold 0 epoch  900/5000 | train Vm 0.019065 ATdiag 0.02216 | val Vm 0.028769 ATdiag 0.04021 | best 0.026544@730 | eta 14.5 min
+  fold 0 epoch 1000/5000 | train Vm 0.018758 ATdiag 0.02149 | val Vm 0.027113 ATdiag 0.03729 | best 0.026544@730 | eta 14.1 min
+  fold 0 epoch 1100/5000 | train Vm 0.019190 ATdiag 0.02221 | val Vm 0.030230 ATdiag 0.04339 | best 0.026544@730 | eta 13.8 min
+  fold 0 epoch 1200/5000 | train Vm 0.018883 ATdiag 0.02171 | val Vm 0.030795 ATdiag 0.04405 | best 0.026544@730 | eta 13.4 min
+  fold 0 epoch 1300/5000 | train Vm 0.017856 ATdiag 0.02000 | val Vm 0.028054 ATdiag 0.03921 | best 0.026544@730 | eta 13.0 min
+  fold 0 epoch 1400/5000 | train Vm 0.018270 ATdiag 0.02064 | val Vm 0.027330 ATdiag 0.03765 | best 0.026201@1310 | eta 12.6 min
+  fold 0 epoch 1500/5000 | train Vm 0.018371 ATdiag 0.02078 | val Vm 0.030595 ATdiag 0.04371 | best 0.026201@1310 | eta 12.3 min
+  fold 0 epoch 1600/5000 | train Vm 0.019831 ATdiag 0.02316 | val Vm 0.027345 ATdiag 0.03778 | best 0.026201@1310 | eta 11.9 min
+  fold 0 epoch 1700/5000 | train Vm 0.018017 ATdiag 0.02017 | val Vm 0.027564 ATdiag 0.03782 | best 0.026201@1310 | eta 11.6 min
+  fold 0 epoch 1800/5000 | train Vm 0.017011 ATdiag 0.01871 | val Vm 0.027283 ATdiag 0.03720 | best 0.026201@1310 | eta 11.2 min
+  fold 0 epoch 1900/5000 | train Vm 0.017263 ATdiag 0.01903 | val Vm 0.026345 ATdiag 0.03554 | best 0.026201@1310 | eta 10.8 min
+  fold 0 epoch 2000/5000 | train Vm 0.019143 ATdiag 0.02188 | val Vm 0.027279 ATdiag 0.03744 | best 0.026201@1310 | eta 10.5 min
+  fold 0 epoch 2100/5000 | train Vm 0.017580 ATdiag 0.01953 | val Vm 0.027957 ATdiag 0.03892 | best 0.026201@1310 | eta 10.1 min
+  fold 0 epoch 2200/5000 | train Vm 0.017716 ATdiag 0.01962 | val Vm 0.030771 ATdiag 0.04412 | best 0.026201@1310 | eta 9.8 min
+  fold 0 epoch 2300/5000 | train Vm 0.018426 ATdiag 0.02065 | val Vm 0.036128 ATdiag 0.05423 | best 0.026201@1310 | eta 9.4 min
+  fold 0 epoch 2400/5000 | train Vm 0.016892 ATdiag 0.01830 | val Vm 0.028115 ATdiag 0.03911 | best 0.026201@1310 | eta 9.1 min
+  fold 0 epoch 2500/5000 | train Vm 0.017492 ATdiag 0.01923 | val Vm 0.030028 ATdiag 0.04249 | best 0.026201@1310 | eta 8.7 min
+  fold 0 epoch 2600/5000 | train Vm 0.016463 ATdiag 0.01766 | val Vm 0.028639 ATdiag 0.03975 | best 0.026201@1310 | eta 8.4 min
+  fold 0 epoch 2700/5000 | train Vm 0.017227 ATdiag 0.01885 | val Vm 0.029001 ATdiag 0.04058 | best 0.026201@1310 | eta 8.0 min
+  fold 0 epoch 2800/5000 | train Vm 0.016433 ATdiag 0.01767 | val Vm 0.030274 ATdiag 0.04286 | best 0.026201@1310 | eta 7.7 min
+  fold 0 epoch 2900/5000 | train Vm 0.018207 ATdiag 0.02045 | val Vm 0.031686 ATdiag 0.04584 | best 0.026201@1310 | eta 7.3 min
+  fold 0 epoch 3000/5000 | train Vm 0.017415 ATdiag 0.01909 | val Vm 0.031964 ATdiag 0.04671 | best 0.026201@1310 | eta 7.0 min
+  fold 0 epoch 3100/5000 | train Vm 0.016763 ATdiag 0.01807 | val Vm 0.031488 ATdiag 0.04566 | best 0.026201@1310 | eta 6.6 min
+  fold 0 epoch 3200/5000 | train Vm 0.015878 ATdiag 0.01677 | val Vm 0.030953 ATdiag 0.04481 | best 0.026201@1310 | eta 6.3 min
+  fold 0 epoch 3300/5000 | train Vm 0.017636 ATdiag 0.01950 | val Vm 0.032156 ATdiag 0.04698 | best 0.026201@1310 | eta 5.9 min
+  fold 0 epoch 3400/5000 | train Vm 0.016634 ATdiag 0.01793 | val Vm 0.030749 ATdiag 0.04433 | best 0.026201@1310 | eta 5.6 min
+  fold 0 epoch 3500/5000 | train Vm 0.015739 ATdiag 0.01663 | val Vm 0.030860 ATdiag 0.04428 | best 0.026201@1310 | eta 5.2 min
+  fold 0 epoch 3600/5000 | train Vm 0.016559 ATdiag 0.01776 | val Vm 0.031150 ATdiag 0.04542 | best 0.026201@1310 | eta 4.9 min
+  fold 0 epoch 3700/5000 | train Vm 0.017046 ATdiag 0.01862 | val Vm 0.031852 ATdiag 0.04635 | best 0.026201@1310 | eta 4.5 min
+  fold 0 epoch 3800/5000 | train Vm 0.017400 ATdiag 0.01908 | val Vm 0.032412 ATdiag 0.04809 | best 0.026201@1310 | eta 4.2 min
+  fold 0 epoch 3900/5000 | train Vm 0.016520 ATdiag 0.01768 | val Vm 0.031344 ATdiag 0.04538 | best 0.026201@1310 | eta 3.8 min
+  fold 0 epoch 4000/5000 | train Vm 0.015769 ATdiag 0.01659 | val Vm 0.029965 ATdiag 0.04332 | best 0.026201@1310 | eta 3.5 min
+  fold 0 epoch 4100/5000 | train Vm 0.015801 ATdiag 0.01668 | val Vm 0.032848 ATdiag 0.04945 | best 0.026201@1310 | eta 3.1 min
+  fold 0 epoch 4200/5000 | train Vm 0.016465 ATdiag 0.01763 | val Vm 0.031745 ATdiag 0.04687 | best 0.026201@1310 | eta 2.8 min
+  fold 0 epoch 4300/5000 | train Vm 0.015730 ATdiag 0.01656 | val Vm 0.031943 ATdiag 0.04724 | best 0.026201@1310 | eta 2.4 min
+  fold 0 epoch 4400/5000 | train Vm 0.016483 ATdiag 0.01757 | val Vm 0.032040 ATdiag 0.04778 | best 0.026201@1310 | eta 2.1 min
+  fold 0 epoch 4500/5000 | train Vm 0.015828 ATdiag 0.01667 | val Vm 0.032911 ATdiag 0.04925 | best 0.026201@1310 | eta 1.7 min
+  fold 0 epoch 4600/5000 | train Vm 0.015779 ATdiag 0.01667 | val Vm 0.032119 ATdiag 0.04800 | best 0.026201@1310 | eta 1.4 min
+  fold 0 epoch 4700/5000 | train Vm 0.016040 ATdiag 0.01689 | val Vm 0.034529 ATdiag 0.05280 | best 0.026201@1310 | eta 1.0 min
+  fold 0 epoch 4800/5000 | train Vm 0.020143 ATdiag 0.02341 | val Vm 0.031857 ATdiag 0.04683 | best 0.026201@1310 | eta 0.7 min
+  fold 0 epoch 4900/5000 | train Vm 0.015802 ATdiag 0.01666 | val Vm 0.030773 ATdiag 0.04448 | best 0.026201@1310 | eta 0.3 min
+  fold 0 epoch 4999/5000 | train Vm 0.015283 ATdiag 0.01593 | val Vm 0.032845 ATdiag 0.04964 | best 0.026201@1310 | eta 0.0 min
+  fold 0 test  1/25 IMMC036_20160913_merge_000 | Vm MAE 2.153 mV | AT 5.069/6.051 ms | dVdt 0.356
+  fold 0 test  2/25 IMMC069_20170622_merge_000 | Vm MAE 1.712 mV | AT 3.979/4.091 ms | dVdt 0.355
+  fold 0 test  3/25 IMMC063_20171031_merge_000 | Vm MAE 1.769 mV | AT 4.141/3.943 ms | dVdt 0.358
+  fold 0 test  4/25 IMMC112_20181128_merge_000 | Vm MAE 1.696 mV | AT 3.940/4.524 ms | dVdt 0.353
+  fold 0 test  5/25 IMMC080_20170816_merge_000 | Vm MAE 2.741 mV | AT 6.850/6.865 ms | dVdt 0.358
+  fold 0 test  6/25 IMMC135_20181226_merge_000 | Vm MAE 2.072 mV | AT 4.965/5.079 ms | dVdt 0.347
+  fold 0 test  7/25 IMMC083_20170907_merge_000 | Vm MAE 1.814 mV | AT 4.290/3.926 ms | dVdt 0.356
+  fold 0 test  8/25 IMMC318_20190709_merge_000 | Vm MAE 2.042 mV | AT 4.795/5.386 ms | dVdt 0.358
+  fold 0 test  9/25 IMMC137_20190715_merge_000 | Vm MAE 2.550 mV | AT 6.276/6.487 ms | dVdt 0.354
+  fold 0 test 10/25 IMMC005_20150909_merge_000 | Vm MAE 2.129 mV | AT 5.197/4.421 ms | dVdt 0.354
+  fold 0 test 11/25 IMMC050_20170717_merge_000 | Vm MAE 1.699 mV | AT 3.889/4.263 ms | dVdt 0.353
+  fold 0 test 12/25 IMMC306_20171012_merge_000 | Vm MAE 1.930 mV | AT 4.624/4.590 ms | dVdt 0.351
+  fold 0 test 13/25 IMMC070_20170629_merge_000 | Vm MAE 2.419 mV | AT 5.975/5.850 ms | dVdt 0.355
+  fold 0 test 14/25 IMMC140_20190828_merge_000 | Vm MAE 1.845 mV | AT 4.334/4.296 ms | dVdt 0.357
+  fold 0 test 15/25 IMMC039_20161020_merge_000 | Vm MAE 1.403 mV | AT 3.194/3.438 ms | dVdt 0.346
+  fold 0 test 16/25 IMMC114_20180627_merge_000 | Vm MAE 2.180 mV | AT 5.265/4.990 ms | dVdt 0.348
+  fold 0 test 17/25 IMMC020_20161013_merge_000 | Vm MAE 1.942 mV | AT 4.641/4.306 ms | dVdt 0.351
+  fold 0 test 18/25 IMMC146_20190403_merge_000 | Vm MAE 1.703 mV | AT 3.964/4.399 ms | dVdt 0.346
+  fold 0 test 19/25 IMMC024_20160426_merge_000 | Vm MAE 1.609 mV | AT 3.673/3.796 ms | dVdt 0.352
+  fold 0 test 20/25 IMMC305_20171012_merge_000 | Vm MAE 1.573 mV | AT 3.590/3.809 ms | dVdt 0.352
+  fold 0 test 21/25 IMMC075_20170802_merge_000 | Vm MAE 2.062 mV | AT 4.904/5.352 ms | dVdt 0.353
+  fold 0 test 22/25 IMMC116_20180710_merge_000 | Vm MAE 2.080 mV | AT 5.061/4.363 ms | dVdt 0.354
+  fold 0 test 23/25 IMMC001_20150716_merge_000 | Vm MAE 1.466 mV | AT 3.282/3.427 ms | dVdt 0.352
+  fold 0 test 24/25 IMMC049_20170717_merge_000 | Vm MAE 3.702 mV | AT 9.371/8.661 ms | dVdt 0.356
+  fold 0 test 25/25 IMMC053_20170803_merge_000 | Vm MAE 3.304 mV | AT 8.288/7.985 ms | dVdt 0.356
+  fold 0 result: Vm 2.064 +/- 0.532 mV | direct AT 4.942 +/- 1.448 ms | decoded AT 4.972 +/- 1.326 ms | dVdt 0.353 +/- 0.003
+
+=== fold 1: 95 fit / 5 val / 25 test ===
+  PCA EVR: PC1=0.6709, PC2=0.2286, PC3=0.0472, PC4=0.0190, PC5=0.0138
+  model: w200 d4, 255,606 params; V_m scale 50.961 mV
+  target std: AT=29.37, PC1=10.54, PC2=6.151, PC3=2.796, PC4=1.774, PC5=1.513
+  fold 1 epoch    0/5000 | train Vm 0.249223 ATdiag 1.00340 | val Vm 0.217784 ATdiag 0.81232 | best 0.217784@0 | eta 20.4 min
+  fold 1 epoch  100/5000 | train Vm 0.033311 ATdiag 0.05458 | val Vm 0.033930 ATdiag 0.05557 | best 0.033930@100 | eta 17.5 min
+  fold 1 epoch  200/5000 | train Vm 0.025143 ATdiag 0.03473 | val Vm 0.028948 ATdiag 0.04197 | best 0.028495@170 | eta 17.1 min
+  fold 1 epoch  300/5000 | train Vm 0.024178 ATdiag 0.03248 | val Vm 0.028180 ATdiag 0.03920 | best 0.026884@290 | eta 16.7 min
+  fold 1 epoch  400/5000 | train Vm 0.021661 ATdiag 0.02750 | val Vm 0.026692 ATdiag 0.03627 | best 0.026409@360 | eta 16.3 min
+  fold 1 epoch  500/5000 | train Vm 0.020711 ATdiag 0.02558 | val Vm 0.027575 ATdiag 0.03809 | best 0.026409@360 | eta 15.9 min
+  fold 1 epoch  600/5000 | train Vm 0.019726 ATdiag 0.02369 | val Vm 0.027399 ATdiag 0.03772 | best 0.026409@360 | eta 15.5 min
+  fold 1 epoch  700/5000 | train Vm 0.020281 ATdiag 0.02471 | val Vm 0.026752 ATdiag 0.03697 | best 0.026291@630 | eta 15.2 min
+  fold 1 epoch  800/5000 | train Vm 0.020206 ATdiag 0.02447 | val Vm 0.025931 ATdiag 0.03420 | best 0.025153@790 | eta 14.8 min
+  fold 1 epoch  900/5000 | train Vm 0.019277 ATdiag 0.02297 | val Vm 0.024446 ATdiag 0.03159 | best 0.024446@900 | eta 14.5 min
+  fold 1 epoch 1000/5000 | train Vm 0.019364 ATdiag 0.02306 | val Vm 0.024839 ATdiag 0.03234 | best 0.024325@980 | eta 14.1 min
+  fold 1 epoch 1100/5000 | train Vm 0.018697 ATdiag 0.02173 | val Vm 0.025065 ATdiag 0.03298 | best 0.023910@1080 | eta 13.7 min
+  fold 1 epoch 1200/5000 | train Vm 0.017691 ATdiag 0.02018 | val Vm 0.024027 ATdiag 0.03080 | best 0.023910@1080 | eta 13.3 min
+  fold 1 epoch 1300/5000 | train Vm 0.022543 ATdiag 0.02878 | val Vm 0.025818 ATdiag 0.03485 | best 0.023554@1230 | eta 12.9 min
+  fold 1 epoch 1400/5000 | train Vm 0.017476 ATdiag 0.01974 | val Vm 0.024456 ATdiag 0.03132 | best 0.023554@1230 | eta 12.6 min
+  fold 1 epoch 1500/5000 | train Vm 0.017425 ATdiag 0.01968 | val Vm 0.023869 ATdiag 0.03030 | best 0.023554@1230 | eta 12.2 min
+  fold 1 epoch 1600/5000 | train Vm 0.017584 ATdiag 0.01974 | val Vm 0.024852 ATdiag 0.03238 | best 0.023529@1530 | eta 11.9 min
+  fold 1 epoch 1700/5000 | train Vm 0.017550 ATdiag 0.01970 | val Vm 0.024571 ATdiag 0.03175 | best 0.023529@1530 | eta 11.5 min
+  fold 1 epoch 1800/5000 | train Vm 0.017183 ATdiag 0.01925 | val Vm 0.024686 ATdiag 0.03175 | best 0.023529@1530 | eta 11.1 min
+  fold 1 epoch 1900/5000 | train Vm 0.018273 ATdiag 0.02095 | val Vm 0.028499 ATdiag 0.03905 | best 0.023529@1530 | eta 10.8 min
+  fold 1 epoch 2000/5000 | train Vm 0.017386 ATdiag 0.01947 | val Vm 0.025360 ATdiag 0.03324 | best 0.023529@1530 | eta 10.4 min
+  fold 1 epoch 2100/5000 | train Vm 0.017810 ATdiag 0.02018 | val Vm 0.025122 ATdiag 0.03270 | best 0.023529@1530 | eta 10.1 min
+  fold 1 epoch 2200/5000 | train Vm 0.016558 ATdiag 0.01815 | val Vm 0.025177 ATdiag 0.03268 | best 0.023529@1530 | eta 9.7 min
+  fold 1 epoch 2300/5000 | train Vm 0.016560 ATdiag 0.01821 | val Vm 0.025433 ATdiag 0.03305 | best 0.023529@1530 | eta 9.4 min
+  fold 1 epoch 2400/5000 | train Vm 0.016575 ATdiag 0.01819 | val Vm 0.025602 ATdiag 0.03337 | best 0.023529@1530 | eta 9.0 min
+  fold 1 epoch 2500/5000 | train Vm 0.016384 ATdiag 0.01787 | val Vm 0.025921 ATdiag 0.03412 | best 0.023529@1530 | eta 8.7 min
+  fold 1 epoch 2600/5000 | train Vm 0.016709 ATdiag 0.01824 | val Vm 0.027058 ATdiag 0.03610 | best 0.023529@1530 | eta 8.3 min
+  fold 1 epoch 2700/5000 | train Vm 0.017996 ATdiag 0.02043 | val Vm 0.027899 ATdiag 0.03778 | best 0.023529@1530 | eta 8.0 min
+  fold 1 epoch 2800/5000 | train Vm 0.017188 ATdiag 0.01908 | val Vm 0.026287 ATdiag 0.03477 | best 0.023529@1530 | eta 7.6 min
+  fold 1 epoch 2900/5000 | train Vm 0.016318 ATdiag 0.01782 | val Vm 0.026283 ATdiag 0.03464 | best 0.023529@1530 | eta 7.3 min
+  fold 1 epoch 3000/5000 | train Vm 0.016367 ATdiag 0.01782 | val Vm 0.026517 ATdiag 0.03523 | best 0.023529@1530 | eta 6.9 min
+  fold 1 epoch 3100/5000 | train Vm 0.016131 ATdiag 0.01742 | val Vm 0.026491 ATdiag 0.03521 | best 0.023529@1530 | eta 6.6 min
+  fold 1 epoch 3200/5000 | train Vm 0.015937 ATdiag 0.01717 | val Vm 0.025871 ATdiag 0.03378 | best 0.023529@1530 | eta 6.2 min
+  fold 1 epoch 3300/5000 | train Vm 0.016126 ATdiag 0.01750 | val Vm 0.027181 ATdiag 0.03626 | best 0.023529@1530 | eta 5.9 min
+  fold 1 epoch 3400/5000 | train Vm 0.016123 ATdiag 0.01744 | val Vm 0.027928 ATdiag 0.03763 | best 0.023529@1530 | eta 5.5 min
+  fold 1 epoch 3500/5000 | train Vm 0.015831 ATdiag 0.01707 | val Vm 0.026632 ATdiag 0.03522 | best 0.023529@1530 | eta 5.2 min
+  fold 1 epoch 3600/5000 | train Vm 0.016322 ATdiag 0.01776 | val Vm 0.028443 ATdiag 0.03895 | best 0.023529@1530 | eta 4.8 min
+  fold 1 epoch 3700/5000 | train Vm 0.015617 ATdiag 0.01670 | val Vm 0.027683 ATdiag 0.03716 | best 0.023529@1530 | eta 4.5 min
+  fold 1 epoch 3800/5000 | train Vm 0.016680 ATdiag 0.01825 | val Vm 0.027397 ATdiag 0.03699 | best 0.023529@1530 | eta 4.2 min
+  fold 1 epoch 3900/5000 | train Vm 0.015953 ATdiag 0.01714 | val Vm 0.026592 ATdiag 0.03544 | best 0.023529@1530 | eta 3.8 min
+  fold 1 epoch 4000/5000 | train Vm 0.015568 ATdiag 0.01661 | val Vm 0.026615 ATdiag 0.03507 | best 0.023529@1530 | eta 3.5 min
+  fold 1 epoch 4100/5000 | train Vm 0.015494 ATdiag 0.01655 | val Vm 0.027003 ATdiag 0.03582 | best 0.023529@1530 | eta 3.1 min
+  fold 1 epoch 4200/5000 | train Vm 0.016084 ATdiag 0.01729 | val Vm 0.028973 ATdiag 0.03978 | best 0.023529@1530 | eta 2.8 min
+  fold 1 epoch 4300/5000 | train Vm 0.018143 ATdiag 0.02052 | val Vm 0.029616 ATdiag 0.04086 | best 0.023529@1530 | eta 2.4 min
+  fold 1 epoch 4400/5000 | train Vm 0.016215 ATdiag 0.01753 | val Vm 0.027813 ATdiag 0.03742 | best 0.023529@1530 | eta 2.1 min
+  fold 1 epoch 4500/5000 | train Vm 0.015542 ATdiag 0.01650 | val Vm 0.027977 ATdiag 0.03758 | best 0.023529@1530 | eta 1.7 min
+  fold 1 epoch 4600/5000 | train Vm 0.015412 ATdiag 0.01637 | val Vm 0.027634 ATdiag 0.03685 | best 0.023529@1530 | eta 1.4 min
+  fold 1 epoch 4700/5000 | train Vm 0.015740 ATdiag 0.01684 | val Vm 0.027775 ATdiag 0.03752 | best 0.023529@1530 | eta 1.0 min
+  fold 1 epoch 4800/5000 | train Vm 0.015680 ATdiag 0.01671 | val Vm 0.028139 ATdiag 0.03835 | best 0.023529@1530 | eta 0.7 min
+  fold 1 epoch 4900/5000 | train Vm 0.015340 ATdiag 0.01627 | val Vm 0.027978 ATdiag 0.03773 | best 0.023529@1530 | eta 0.3 min
+  fold 1 epoch 4999/5000 | train Vm 0.015527 ATdiag 0.01647 | val Vm 0.028435 ATdiag 0.03845 | best 0.023529@1530 | eta 0.0 min
+  fold 1 test  1/25 IMMC097_20171115_merge_000 | Vm MAE 2.081 mV | AT 4.974/5.749 ms | dVdt 0.347
+  fold 1 test  2/25 IMMC024_20161018_merge_000 | Vm MAE 1.610 mV | AT 3.803/3.805 ms | dVdt 0.345
+  fold 1 test  3/25 IMMC048_20161222_merge_000 | Vm MAE 1.842 mV | AT 4.401/3.998 ms | dVdt 0.351
+  fold 1 test  4/25 IMMC070_20171211_merge_000 | Vm MAE 1.730 mV | AT 4.100/4.312 ms | dVdt 0.344
+  fold 1 test  5/25 IMMC210_20181126_merge_000 | Vm MAE 1.863 mV | AT 4.447/4.954 ms | dVdt 0.345
+  fold 1 test  6/25 IMMC133_20181206_merge_000 | Vm MAE 1.782 mV | AT 4.253/4.551 ms | dVdt 0.346
+  fold 1 test  7/25 IMMC108_20180507_merge_000 | Vm MAE 1.947 mV | AT 4.620/5.328 ms | dVdt 0.345
+  fold 1 test  8/25 IMMC090_20171011_merge_000 | Vm MAE 2.063 mV | AT 4.960/5.474 ms | dVdt 0.349
+  fold 1 test  9/25 IMMC032_20160715_merge_000 | Vm MAE 1.606 mV | AT 3.753/3.843 ms | dVdt 0.348
+  fold 1 test 10/25 IMMC304_20170227_merge_000 | Vm MAE 2.336 mV | AT 5.799/5.304 ms | dVdt 0.348
+  fold 1 test 11/25 IMMC043_20170525_merge_000 | Vm MAE 1.735 mV | AT 4.131/3.777 ms | dVdt 0.346
+  fold 1 test 12/25 IMMC067_20170530_merge_000 | Vm MAE 1.835 mV | AT 4.421/4.161 ms | dVdt 0.347
+  fold 1 test 13/25 IMMC119_20180824_merge_000 | Vm MAE 1.951 mV | AT 4.765/4.396 ms | dVdt 0.348
+  fold 1 test 14/25 IMMC124_20190325_merge_000 | Vm MAE 2.479 mV | AT 6.168/6.331 ms | dVdt 0.347
+  fold 1 test 15/25 IMMC052_20170731_merge_000 | Vm MAE 2.014 mV | AT 4.910/4.511 ms | dVdt 0.354
+  fold 1 test 16/25 IMMC138_20190814_merge_000 | Vm MAE 1.877 mV | AT 4.424/5.016 ms | dVdt 0.350
+  fold 1 test 17/25 IMMC082_20180319_merge_000 | Vm MAE 2.587 mV | AT 6.329/7.255 ms | dVdt 0.346
+  fold 1 test 18/25 IMMC012_20151217_merge_000 | Vm MAE 2.119 mV | AT 5.086/5.523 ms | dVdt 0.349
+  fold 1 test 19/25 IMMC056_20170302_merge_000 | Vm MAE 1.571 mV | AT 3.659/3.769 ms | dVdt 0.344
+  fold 1 test 20/25 IMMC088_20171002_merge_000 | Vm MAE 1.535 mV | AT 3.577/3.740 ms | dVdt 0.346
+  fold 1 test 21/25 IMMC048_20170622_merge_000 | Vm MAE 1.723 mV | AT 3.976/4.239 ms | dVdt 0.348
+  fold 1 test 22/25 IMMC312_20181122_merge_000 | Vm MAE 1.556 mV | AT 3.606/3.572 ms | dVdt 0.345
+  fold 1 test 23/25 IMMC051_20170116_merge_000 | Vm MAE 2.492 mV | AT 6.239/5.573 ms | dVdt 0.349
+  fold 1 test 24/25 IMMC096_20171115_merge_000 | Vm MAE 2.692 mV | AT 6.656/6.775 ms | dVdt 0.352
+  fold 1 test 25/25 IMMC316_20181121_merge_000 | Vm MAE 1.975 mV | AT 4.769/4.372 ms | dVdt 0.346
+  fold 1 result: Vm 1.960 +/- 0.326 mV | direct AT 4.713 +/- 0.883 ms | decoded AT 4.813 +/- 0.982 ms | dVdt 0.347 +/- 0.002
+
+=== fold 2: 95 fit / 5 val / 25 test ===
+  PCA EVR: PC1=0.6654, PC2=0.2325, PC3=0.0480, PC4=0.0193, PC5=0.0141
+  model: w200 d4, 255,606 params; V_m scale 50.961 mV
+  target std: AT=29.49, PC1=10.39, PC2=6.142, PC3=2.792, PC4=1.769, PC5=1.513
+  fold 2 epoch    0/5000 | train Vm 0.249411 ATdiag 0.99896 | val Vm 0.216734 ATdiag 0.79171 | best 0.216734@0 | eta 20.0 min
+  fold 2 epoch  100/5000 | train Vm 0.031946 ATdiag 0.05046 | val Vm 0.033813 ATdiag 0.05506 | best 0.033813@100 | eta 17.2 min
+  fold 2 epoch  200/5000 | train Vm 0.026077 ATdiag 0.03619 | val Vm 0.028146 ATdiag 0.03981 | best 0.028146@200 | eta 16.8 min
+  fold 2 epoch  300/5000 | train Vm 0.022253 ATdiag 0.02842 | val Vm 0.030121 ATdiag 0.04291 | best 0.028146@200 | eta 16.4 min
+  fold 2 epoch  400/5000 | train Vm 0.022257 ATdiag 0.02826 | val Vm 0.028018 ATdiag 0.03916 | best 0.028018@400 | eta 16.1 min
+  fold 2 epoch  500/5000 | train Vm 0.020978 ATdiag 0.02586 | val Vm 0.028584 ATdiag 0.03971 | best 0.027662@480 | eta 15.7 min
+  fold 2 epoch  600/5000 | train Vm 0.020413 ATdiag 0.02472 | val Vm 0.027256 ATdiag 0.03725 | best 0.026478@550 | eta 15.4 min
+  fold 2 epoch  700/5000 | train Vm 0.019283 ATdiag 0.02278 | val Vm 0.027902 ATdiag 0.03806 | best 0.026478@550 | eta 15.0 min
+  fold 2 epoch  800/5000 | train Vm 0.021116 ATdiag 0.02586 | val Vm 0.033260 ATdiag 0.04816 | best 0.026478@550 | eta 14.7 min
+  fold 2 epoch  900/5000 | train Vm 0.019004 ATdiag 0.02221 | val Vm 0.030581 ATdiag 0.04319 | best 0.026478@550 | eta 14.3 min
+  fold 2 epoch 1000/5000 | train Vm 0.018890 ATdiag 0.02187 | val Vm 0.028893 ATdiag 0.04006 | best 0.026478@550 | eta 13.9 min
+  fold 2 epoch 1100/5000 | train Vm 0.018549 ATdiag 0.02133 | val Vm 0.027828 ATdiag 0.03843 | best 0.026438@1090 | eta 13.6 min
+  fold 2 epoch 1200/5000 | train Vm 0.018318 ATdiag 0.02103 | val Vm 0.030220 ATdiag 0.04286 | best 0.026438@1090 | eta 13.2 min
+  fold 2 epoch 1300/5000 | train Vm 0.017503 ATdiag 0.01962 | val Vm 0.027587 ATdiag 0.03757 | best 0.026438@1090 | eta 12.9 min
+  fold 2 epoch 1400/5000 | train Vm 0.017412 ATdiag 0.01946 | val Vm 0.026405 ATdiag 0.03573 | best 0.026405@1400 | eta 12.5 min
+  fold 2 epoch 1500/5000 | train Vm 0.018323 ATdiag 0.02081 | val Vm 0.028772 ATdiag 0.04011 | best 0.026405@1400 | eta 12.2 min
+  fold 2 epoch 1600/5000 | train Vm 0.016892 ATdiag 0.01852 | val Vm 0.026800 ATdiag 0.03640 | best 0.026405@1400 | eta 11.8 min
+  fold 2 epoch 1700/5000 | train Vm 0.018090 ATdiag 0.02040 | val Vm 0.027834 ATdiag 0.03842 | best 0.026405@1400 | eta 11.5 min
+  fold 2 epoch 1800/5000 | train Vm 0.016884 ATdiag 0.01853 | val Vm 0.029178 ATdiag 0.04079 | best 0.026222@1710 | eta 11.1 min
+  fold 2 epoch 1900/5000 | train Vm 0.017318 ATdiag 0.01925 | val Vm 0.028738 ATdiag 0.04013 | best 0.026222@1710 | eta 10.8 min
+  fold 2 epoch 2000/5000 | train Vm 0.018504 ATdiag 0.02114 | val Vm 0.029191 ATdiag 0.04099 | best 0.026222@1710 | eta 10.5 min
+  fold 2 epoch 2100/5000 | train Vm 0.016749 ATdiag 0.01824 | val Vm 0.030243 ATdiag 0.04288 | best 0.026222@1710 | eta 10.1 min
+  fold 2 epoch 2200/5000 | train Vm 0.017077 ATdiag 0.01874 | val Vm 0.028730 ATdiag 0.04002 | best 0.026222@1710 | eta 9.8 min
+  fold 2 epoch 2300/5000 | train Vm 0.016601 ATdiag 0.01805 | val Vm 0.029103 ATdiag 0.04053 | best 0.026222@1710 | eta 9.5 min
+  fold 2 epoch 2400/5000 | train Vm 0.016549 ATdiag 0.01801 | val Vm 0.027905 ATdiag 0.03848 | best 0.026222@1710 | eta 9.1 min
+  fold 2 epoch 2500/5000 | train Vm 0.017373 ATdiag 0.01925 | val Vm 0.033792 ATdiag 0.04980 | best 0.026222@1710 | eta 8.8 min
+  fold 2 epoch 2600/5000 | train Vm 0.016175 ATdiag 0.01737 | val Vm 0.028174 ATdiag 0.03901 | best 0.026222@1710 | eta 8.4 min
+  fold 2 epoch 2700/5000 | train Vm 0.016956 ATdiag 0.01858 | val Vm 0.029813 ATdiag 0.04207 | best 0.026222@1710 | eta 8.1 min
+  fold 2 epoch 2800/5000 | train Vm 0.015937 ATdiag 0.01702 | val Vm 0.028527 ATdiag 0.03969 | best 0.026222@1710 | eta 7.8 min
+  fold 2 epoch 2900/5000 | train Vm 0.015675 ATdiag 0.01668 | val Vm 0.028697 ATdiag 0.03980 | best 0.026222@1710 | eta 7.4 min
+  fold 2 epoch 3000/5000 | train Vm 0.016258 ATdiag 0.01758 | val Vm 0.028817 ATdiag 0.04034 | best 0.026222@1710 | eta 7.1 min
+  fold 2 epoch 3100/5000 | train Vm 0.015986 ATdiag 0.01711 | val Vm 0.030177 ATdiag 0.04248 | best 0.026222@1710 | eta 6.7 min
+  fold 2 epoch 3200/5000 | train Vm 0.015609 ATdiag 0.01656 | val Vm 0.029747 ATdiag 0.04175 | best 0.026222@1710 | eta 6.4 min
+  fold 2 epoch 3300/5000 | train Vm 0.016147 ATdiag 0.01736 | val Vm 0.029529 ATdiag 0.04135 | best 0.026222@1710 | eta 6.0 min
+  fold 2 epoch 3400/5000 | train Vm 0.015708 ATdiag 0.01671 | val Vm 0.030838 ATdiag 0.04418 | best 0.026222@1710 | eta 5.7 min
+  fold 2 epoch 3500/5000 | train Vm 0.015416 ATdiag 0.01627 | val Vm 0.030829 ATdiag 0.04392 | best 0.026222@1710 | eta 5.3 min
+  fold 2 epoch 3600/5000 | train Vm 0.015913 ATdiag 0.01696 | val Vm 0.030746 ATdiag 0.04377 | best 0.026222@1710 | eta 5.0 min
+  fold 2 epoch 3700/5000 | train Vm 0.016486 ATdiag 0.01772 | val Vm 0.029812 ATdiag 0.04212 | best 0.026222@1710 | eta 4.6 min
+  fold 2 epoch 3800/5000 | train Vm 0.015553 ATdiag 0.01639 | val Vm 0.030417 ATdiag 0.04310 | best 0.026222@1710 | eta 4.2 min
+  fold 2 epoch 3900/5000 | train Vm 0.015716 ATdiag 0.01662 | val Vm 0.034030 ATdiag 0.05042 | best 0.026222@1710 | eta 3.9 min
+  fold 2 epoch 4000/5000 | train Vm 0.017132 ATdiag 0.01878 | val Vm 0.037640 ATdiag 0.05764 | best 0.026222@1710 | eta 3.5 min
+  fold 2 epoch 4100/5000 | train Vm 0.016229 ATdiag 0.01749 | val Vm 0.032567 ATdiag 0.04775 | best 0.026222@1710 | eta 3.2 min
+  fold 2 epoch 4200/5000 | train Vm 0.015590 ATdiag 0.01643 | val Vm 0.032392 ATdiag 0.04686 | best 0.026222@1710 | eta 2.8 min
+  fold 2 epoch 4300/5000 | train Vm 0.015263 ATdiag 0.01609 | val Vm 0.031631 ATdiag 0.04557 | best 0.026222@1710 | eta 2.5 min
+  fold 2 epoch 4400/5000 | train Vm 0.015519 ATdiag 0.01633 | val Vm 0.033957 ATdiag 0.05052 | best 0.026222@1710 | eta 2.1 min
+  fold 2 epoch 4500/5000 | train Vm 0.016738 ATdiag 0.01814 | val Vm 0.033622 ATdiag 0.05024 | best 0.026222@1710 | eta 1.8 min
+  fold 2 epoch 4600/5000 | train Vm 0.015173 ATdiag 0.01580 | val Vm 0.031086 ATdiag 0.04488 | best 0.026222@1710 | eta 1.4 min
+  fold 2 epoch 4700/5000 | train Vm 0.016398 ATdiag 0.01767 | val Vm 0.035337 ATdiag 0.05319 | best 0.026222@1710 | eta 1.1 min
+  fold 2 epoch 4800/5000 | train Vm 0.014968 ATdiag 0.01548 | val Vm 0.033712 ATdiag 0.05002 | best 0.026222@1710 | eta 0.7 min
+  fold 2 epoch 4900/5000 | train Vm 0.015176 ATdiag 0.01594 | val Vm 0.033264 ATdiag 0.04911 | best 0.026222@1710 | eta 0.4 min
+  fold 2 epoch 4999/5000 | train Vm 0.015174 ATdiag 0.01580 | val Vm 0.032103 ATdiag 0.04670 | best 0.026222@1710 | eta 0.0 min
+  fold 2 test  1/25 IMMC007_20151022_merge_000 | Vm MAE 2.397 mV | AT 5.941/5.662 ms | dVdt 0.347
+  fold 2 test  2/25 IMMC091_20180424_merge_000 | Vm MAE 2.598 mV | AT 6.393/6.964 ms | dVdt 0.348
+  fold 2 test  3/25 IMMC103_20180711_merge_000 | Vm MAE 1.629 mV | AT 3.793/3.951 ms | dVdt 0.349
+  fold 2 test  4/25 IMMC065_20171116_merge_000 | Vm MAE 4.194 mV | AT 10.799/9.646 ms | dVdt 0.350
+  fold 2 test  5/25 IMMC076_20170802_merge_000 | Vm MAE 1.395 mV | AT 3.125/3.262 ms | dVdt 0.351
+  fold 2 test  6/25 IMMC063_20170508_merge_000 | Vm MAE 2.740 mV | AT 6.938/5.829 ms | dVdt 0.352
+  fold 2 test  7/25 IMMC032_20170117_merge_000 | Vm MAE 1.498 mV | AT 3.391/3.516 ms | dVdt 0.350
+  fold 2 test  8/25 IMMC097_20180517_merge_000 | Vm MAE 1.836 mV | AT 4.355/4.661 ms | dVdt 0.350
+  fold 2 test  9/25 IMMC059_20170314_merge_000 | Vm MAE 3.006 mV | AT 7.501/7.971 ms | dVdt 0.351
+  fold 2 test 10/25 IMMC306_20170406_merge_000 | Vm MAE 1.955 mV | AT 4.714/4.537 ms | dVdt 0.355
+  fold 2 test 11/25 IMMC008_20160427_merge_000 | Vm MAE 2.084 mV | AT 5.056/4.900 ms | dVdt 0.355
+  fold 2 test 12/25 IMMC310_20180405_merge_000 | Vm MAE 2.168 mV | AT 5.242/5.872 ms | dVdt 0.349
+  fold 2 test 13/25 IMMC069_20171220_merge_000 | Vm MAE 1.834 mV | AT 4.324/4.711 ms | dVdt 0.354
+  fold 2 test 14/25 IMMC139_20190304_merge_000 | Vm MAE 2.002 mV | AT 4.861/4.641 ms | dVdt 0.350
+  fold 2 test 15/25 IMMC098_20180517_merge_000 | Vm MAE 1.596 mV | AT 3.710/3.862 ms | dVdt 0.349
+  fold 2 test 16/25 IMMC144_20190401_merge_000 | Vm MAE 2.443 mV | AT 6.088/5.549 ms | dVdt 0.351
+  fold 2 test 17/25 IMMC204_20160926_merge_000 | Vm MAE 2.169 mV | AT 5.231/5.264 ms | dVdt 0.350
+  fold 2 test 18/25 IMMC010_20160503_merge_000 | Vm MAE 2.201 mV | AT 5.431/4.808 ms | dVdt 0.349
+  fold 2 test 19/25 IMMC027_20160526_merge_000 | Vm MAE 2.709 mV | AT 6.805/6.547 ms | dVdt 0.349
+  fold 2 test 20/25 IMMC212_20181003_merge_000 | Vm MAE 1.488 mV | AT 3.390/3.572 ms | dVdt 0.352
+  fold 2 test 21/25 IMMC003_20160202_merge_000 | Vm MAE 1.744 mV | AT 4.086/4.155 ms | dVdt 0.350
+  fold 2 test 22/25 IMMC034_20160805_merge_000 | Vm MAE 1.568 mV | AT 3.577/3.642 ms | dVdt 0.350
+  fold 2 test 23/25 IMMC065_20170516_merge_000 | Vm MAE 3.363 mV | AT 8.551/7.578 ms | dVdt 0.350
+  fold 2 test 24/25 IMMC107_20181010_merge_000 | Vm MAE 1.791 mV | AT 4.233/4.505 ms | dVdt 0.350
+  fold 2 test 25/25 IMMC141_20190311_merge_000 | Vm MAE 2.370 mV | AT 5.726/6.444 ms | dVdt 0.351
+  fold 2 result: Vm 2.191 +/- 0.642 mV | direct AT 5.330 +/- 1.765 ms | decoded AT 5.282 +/- 1.532 ms | dVdt 0.351 +/- 0.002
+
+=== fold 3: 95 fit / 5 val / 25 test ===
+  PCA EVR: PC1=0.6721, PC2=0.2277, PC3=0.0470, PC4=0.0189, PC5=0.0138
+  model: w200 d4, 255,606 params; V_m scale 50.961 mV
+  target std: AT=29.71, PC1=10.57, PC2=6.153, PC3=2.797, PC4=1.775, PC5=1.514
+  fold 3 epoch    0/5000 | train Vm 0.249502 ATdiag 0.98363 | val Vm 0.216557 ATdiag 0.78328 | best 0.216557@0 | eta 20.1 min
+  fold 3 epoch  100/5000 | train Vm 0.033819 ATdiag 0.05448 | val Vm 0.033394 ATdiag 0.05174 | best 0.033394@100 | eta 17.3 min
+  fold 3 epoch  200/5000 | train Vm 0.028181 ATdiag 0.04029 | val Vm 0.029371 ATdiag 0.04075 | best 0.028522@190 | eta 16.9 min
+  fold 3 epoch  300/5000 | train Vm 0.023481 ATdiag 0.03039 | val Vm 0.025483 ATdiag 0.03366 | best 0.025483@300 | eta 16.5 min
+  fold 3 epoch  400/5000 | train Vm 0.022415 ATdiag 0.02816 | val Vm 0.026313 ATdiag 0.03526 | best 0.025483@300 | eta 16.1 min
+  fold 3 epoch  500/5000 | train Vm 0.025082 ATdiag 0.03318 | val Vm 0.032010 ATdiag 0.04823 | best 0.025483@300 | eta 15.8 min
+  fold 3 epoch  600/5000 | train Vm 0.021749 ATdiag 0.02660 | val Vm 0.029443 ATdiag 0.04217 | best 0.025483@300 | eta 15.4 min
+  fold 3 epoch  700/5000 | train Vm 0.019317 ATdiag 0.02254 | val Vm 0.026462 ATdiag 0.03568 | best 0.025431@610 | eta 15.1 min
+  fold 3 epoch  800/5000 | train Vm 0.019027 ATdiag 0.02202 | val Vm 0.026545 ATdiag 0.03561 | best 0.025431@610 | eta 14.7 min
+  fold 3 epoch  900/5000 | train Vm 0.019909 ATdiag 0.02339 | val Vm 0.026140 ATdiag 0.03490 | best 0.025431@610 | eta 14.4 min
+  fold 3 epoch 1000/5000 | train Vm 0.019708 ATdiag 0.02293 | val Vm 0.028189 ATdiag 0.03899 | best 0.025431@610 | eta 14.0 min
+  fold 3 epoch 1100/5000 | train Vm 0.019079 ATdiag 0.02184 | val Vm 0.028732 ATdiag 0.03923 | best 0.025431@610 | eta 13.7 min
+  fold 3 epoch 1200/5000 | train Vm 0.018087 ATdiag 0.02018 | val Vm 0.028695 ATdiag 0.03925 | best 0.025431@610 | eta 13.3 min
+  fold 3 epoch 1300/5000 | train Vm 0.018811 ATdiag 0.02137 | val Vm 0.030746 ATdiag 0.04355 | best 0.025431@610 | eta 13.0 min
+  fold 3 epoch 1400/5000 | train Vm 0.017726 ATdiag 0.01968 | val Vm 0.029572 ATdiag 0.04080 | best 0.025431@610 | eta 12.6 min
+  fold 3 epoch 1500/5000 | train Vm 0.017768 ATdiag 0.01968 | val Vm 0.028082 ATdiag 0.03792 | best 0.025431@610 | eta 12.3 min
+  fold 3 epoch 1600/5000 | train Vm 0.018034 ATdiag 0.02015 | val Vm 0.031400 ATdiag 0.04444 | best 0.025431@610 | eta 11.9 min
+  fold 3 epoch 1700/5000 | train Vm 0.017422 ATdiag 0.01908 | val Vm 0.028187 ATdiag 0.03871 | best 0.025431@610 | eta 11.6 min
+  fold 3 epoch 1800/5000 | train Vm 0.018231 ATdiag 0.02034 | val Vm 0.030916 ATdiag 0.04352 | best 0.025431@610 | eta 11.2 min
+  fold 3 epoch 1900/5000 | train Vm 0.021024 ATdiag 0.02484 | val Vm 0.032297 ATdiag 0.04767 | best 0.025431@610 | eta 10.9 min
+  fold 3 epoch 2000/5000 | train Vm 0.017533 ATdiag 0.01932 | val Vm 0.031411 ATdiag 0.04509 | best 0.025431@610 | eta 10.5 min
+  fold 3 epoch 2100/5000 | train Vm 0.017626 ATdiag 0.01946 | val Vm 0.032173 ATdiag 0.04624 | best 0.025431@610 | eta 10.2 min
+  fold 3 epoch 2200/5000 | train Vm 0.018278 ATdiag 0.02056 | val Vm 0.030478 ATdiag 0.04325 | best 0.025431@610 | eta 9.8 min
+  fold 3 epoch 2300/5000 | train Vm 0.016634 ATdiag 0.01785 | val Vm 0.029088 ATdiag 0.04036 | best 0.025431@610 | eta 9.5 min
+  fold 3 epoch 2400/5000 | train Vm 0.017184 ATdiag 0.01873 | val Vm 0.032316 ATdiag 0.04706 | best 0.025431@610 | eta 9.1 min
+  fold 3 epoch 2500/5000 | train Vm 0.017146 ATdiag 0.01865 | val Vm 0.028648 ATdiag 0.03986 | best 0.025431@610 | eta 8.8 min
+  fold 3 epoch 2600/5000 | train Vm 0.019048 ATdiag 0.02156 | val Vm 0.035868 ATdiag 0.05353 | best 0.025431@610 | eta 8.4 min
+  fold 3 epoch 2700/5000 | train Vm 0.017691 ATdiag 0.01947 | val Vm 0.030999 ATdiag 0.04444 | best 0.025431@610 | eta 8.1 min
+  fold 3 epoch 2800/5000 | train Vm 0.016503 ATdiag 0.01766 | val Vm 0.032319 ATdiag 0.04666 | best 0.025431@610 | eta 7.7 min
+  fold 3 epoch 2900/5000 | train Vm 0.016644 ATdiag 0.01795 | val Vm 0.032222 ATdiag 0.04662 | best 0.025431@610 | eta 7.4 min
+  fold 3 epoch 3000/5000 | train Vm 0.016358 ATdiag 0.01747 | val Vm 0.032159 ATdiag 0.04669 | best 0.025431@610 | eta 7.0 min
+  fold 3 epoch 3100/5000 | train Vm 0.016902 ATdiag 0.01818 | val Vm 0.031893 ATdiag 0.04625 | best 0.025431@610 | eta 6.7 min
+  fold 3 epoch 3200/5000 | train Vm 0.016484 ATdiag 0.01759 | val Vm 0.032475 ATdiag 0.04752 | best 0.025431@610 | eta 6.3 min
+  fold 3 epoch 3300/5000 | train Vm 0.017385 ATdiag 0.01888 | val Vm 0.032350 ATdiag 0.04730 | best 0.025431@610 | eta 6.0 min
+  fold 3 epoch 3400/5000 | train Vm 0.015985 ATdiag 0.01688 | val Vm 0.032252 ATdiag 0.04688 | best 0.025431@610 | eta 5.6 min
+  fold 3 epoch 3500/5000 | train Vm 0.016665 ATdiag 0.01776 | val Vm 0.029670 ATdiag 0.04182 | best 0.025431@610 | eta 5.3 min
+  fold 3 epoch 3600/5000 | train Vm 0.015840 ATdiag 0.01669 | val Vm 0.032716 ATdiag 0.04754 | best 0.025431@610 | eta 4.9 min
+  fold 3 epoch 3700/5000 | train Vm 0.015835 ATdiag 0.01664 | val Vm 0.033256 ATdiag 0.04855 | best 0.025431@610 | eta 4.6 min
+  fold 3 epoch 3800/5000 | train Vm 0.016246 ATdiag 0.01728 | val Vm 0.032982 ATdiag 0.04810 | best 0.025431@610 | eta 4.2 min
+  fold 3 epoch 3900/5000 | train Vm 0.016465 ATdiag 0.01748 | val Vm 0.036886 ATdiag 0.05635 | best 0.025431@610 | eta 3.9 min
+  fold 3 epoch 4000/5000 | train Vm 0.015699 ATdiag 0.01635 | val Vm 0.032907 ATdiag 0.04785 | best 0.025431@610 | eta 3.5 min
+  fold 3 epoch 4100/5000 | train Vm 0.016259 ATdiag 0.01723 | val Vm 0.031682 ATdiag 0.04572 | best 0.025431@610 | eta 3.2 min
+  fold 3 epoch 4200/5000 | train Vm 0.015786 ATdiag 0.01660 | val Vm 0.031538 ATdiag 0.04547 | best 0.025431@610 | eta 2.8 min
+  fold 3 epoch 4300/5000 | train Vm 0.016686 ATdiag 0.01786 | val Vm 0.036767 ATdiag 0.05622 | best 0.025431@610 | eta 2.5 min
+  fold 3 epoch 4400/5000 | train Vm 0.017579 ATdiag 0.01904 | val Vm 0.039672 ATdiag 0.06288 | best 0.025431@610 | eta 2.1 min
+  fold 3 epoch 4500/5000 | train Vm 0.015890 ATdiag 0.01667 | val Vm 0.036208 ATdiag 0.05498 | best 0.025431@610 | eta 1.8 min
+  fold 3 epoch 4600/5000 | train Vm 0.015307 ATdiag 0.01584 | val Vm 0.034094 ATdiag 0.05029 | best 0.025431@610 | eta 1.4 min
+  fold 3 epoch 4700/5000 | train Vm 0.015693 ATdiag 0.01642 | val Vm 0.035392 ATdiag 0.05278 | best 0.025431@610 | eta 1.0 min
+  fold 3 epoch 4800/5000 | train Vm 0.015294 ATdiag 0.01577 | val Vm 0.037399 ATdiag 0.05744 | best 0.025431@610 | eta 0.7 min
+  fold 3 epoch 4900/5000 | train Vm 0.015733 ATdiag 0.01641 | val Vm 0.037829 ATdiag 0.05856 | best 0.025431@610 | eta 0.3 min
+  fold 3 epoch 4999/5000 | train Vm 0.016657 ATdiag 0.01782 | val Vm 0.035286 ATdiag 0.05266 | best 0.025431@610 | eta 0.0 min
+  fold 3 test  1/25 IMMC008_20151022_merge_000 | Vm MAE 1.807 mV | AT 4.079/4.830 ms | dVdt 0.353
+  fold 3 test  2/25 IMMC118_20180827_merge_000 | Vm MAE 2.298 mV | AT 5.427/6.109 ms | dVdt 0.350
+  fold 3 test  3/25 IMMC208_20181112_merge_000 | Vm MAE 2.124 mV | AT 4.898/5.693 ms | dVdt 0.355
+  fold 3 test  4/25 IMMC213_20181121_merge_000 | Vm MAE 1.993 mV | AT 4.646/5.036 ms | dVdt 0.354
+  fold 3 test  5/25 IMMC081_20180213_merge_000 | Vm MAE 1.738 mV | AT 3.907/4.396 ms | dVdt 0.354
+  fold 3 test  6/25 IMMC076_20180131_merge_000 | Vm MAE 1.651 mV | AT 3.690/3.986 ms | dVdt 0.351
+  fold 3 test  7/25 IMMC121_20190228_merge_000 | Vm MAE 1.611 mV | AT 3.533/3.847 ms | dVdt 0.352
+  fold 3 test  8/25 IMMC074_20170731_merge_000 | Vm MAE 1.982 mV | AT 4.732/4.635 ms | dVdt 0.351
+  fold 3 test  9/25 IMMC123_20180924_merge_000 | Vm MAE 3.218 mV | AT 7.774/9.005 ms | dVdt 0.351
+  fold 3 test 10/25 IMMC086_20180326_merge_000 | Vm MAE 1.770 mV | AT 4.069/4.619 ms | dVdt 0.343
+  fold 3 test 11/25 IMMC314_20190228_merge_000 | Vm MAE 2.067 mV | AT 4.809/5.380 ms | dVdt 0.354
+  fold 3 test 12/25 IMMC116_20190102_merge_000 | Vm MAE 1.834 mV | AT 4.258/4.420 ms | dVdt 0.351
+  fold 3 test 13/25 IMMC142_20190904_merge_000 | Vm MAE 2.175 mV | AT 5.077/5.728 ms | dVdt 0.356
+  fold 3 test 14/25 IMMC068_20171130_merge_000 | Vm MAE 1.872 mV | AT 4.235/4.937 ms | dVdt 0.352
+  fold 3 test 15/25 IMMC085_20170925_merge_000 | Vm MAE 1.807 mV | AT 4.198/4.202 ms | dVdt 0.350
+  fold 3 test 16/25 IMMC133_20190522_merge_000 | Vm MAE 1.644 mV | AT 3.691/3.813 ms | dVdt 0.352
+  fold 3 test 17/25 IMMC075_20180131_merge_000 | Vm MAE 1.773 mV | AT 3.983/4.497 ms | dVdt 0.350
+  fold 3 test 18/25 IMMC131_20190522_merge_000 | Vm MAE 1.952 mV | AT 4.498/5.246 ms | dVdt 0.351
+  fold 3 test 19/25 IMMC314_20180903_merge_000 | Vm MAE 1.700 mV | AT 3.850/3.849 ms | dVdt 0.356
+  fold 3 test 20/25 IMMC084_20180319_merge_000 | Vm MAE 2.258 mV | AT 5.274/6.423 ms | dVdt 0.355
+  fold 3 test 21/25 IMMC112_20180604_merge_000 | Vm MAE 2.178 mV | AT 5.095/5.883 ms | dVdt 0.349
+  fold 3 test 22/25 IMMC055_20170829_merge_000 | Vm MAE 2.067 mV | AT 4.915/4.840 ms | dVdt 0.354
+  fold 3 test 23/25 IMMC308_20171213_merge_000 | Vm MAE 1.694 mV | AT 3.738/4.348 ms | dVdt 0.351
+  fold 3 test 24/25 IMMC085_20180402_merge_000 | Vm MAE 1.791 mV | AT 4.185/4.067 ms | dVdt 0.354
+  fold 3 test 25/25 IMMC088_20180406_merge_000 | Vm MAE 1.552 mV | AT 3.410/3.560 ms | dVdt 0.355
+  fold 3 result: Vm 1.942 +/- 0.333 mV | direct AT 4.479 +/- 0.874 ms | decoded AT 4.934 +/- 1.124 ms | dVdt 0.352 +/- 0.003
+
+=== fold 4: 95 fit / 5 val / 25 test ===
+  PCA EVR: PC1=0.6704, PC2=0.2289, PC3=0.0473, PC4=0.0190, PC5=0.0139
+  model: w200 d4, 255,606 params; V_m scale 50.961 mV
+  target std: AT=29.5, PC1=10.53, PC2=6.154, PC3=2.798, PC4=1.775, PC5=1.514
+  fold 4 epoch    0/5000 | train Vm 0.252050 ATdiag 1.01238 | val Vm 0.245273 ATdiag 0.97136 | best 0.245273@0 | eta 20.0 min
+  fold 4 epoch  100/5000 | train Vm 0.033114 ATdiag 0.05374 | val Vm 0.035116 ATdiag 0.05742 | best 0.035116@100 | eta 17.1 min
+  fold 4 epoch  200/5000 | train Vm 0.030678 ATdiag 0.04534 | val Vm 0.034117 ATdiag 0.05485 | best 0.029924@170 | eta 16.7 min
+  fold 4 epoch  300/5000 | train Vm 0.028413 ATdiag 0.04024 | val Vm 0.041371 ATdiag 0.06786 | best 0.027353@290 | eta 16.4 min
+  fold 4 epoch  400/5000 | train Vm 0.021131 ATdiag 0.02614 | val Vm 0.026873 ATdiag 0.03719 | best 0.026466@380 | eta 16.1 min
+  fold 4 epoch  500/5000 | train Vm 0.020211 ATdiag 0.02447 | val Vm 0.027126 ATdiag 0.03768 | best 0.026466@380 | eta 15.8 min
+  fold 4 epoch  600/5000 | train Vm 0.020606 ATdiag 0.02505 | val Vm 0.027476 ATdiag 0.03784 | best 0.026466@380 | eta 15.4 min
+  fold 4 epoch  700/5000 | train Vm 0.018928 ATdiag 0.02207 | val Vm 0.027327 ATdiag 0.03759 | best 0.026344@660 | eta 15.1 min
+  fold 4 epoch  800/5000 | train Vm 0.019378 ATdiag 0.02283 | val Vm 0.026955 ATdiag 0.03677 | best 0.025970@760 | eta 14.7 min
+  fold 4 epoch  900/5000 | train Vm 0.019723 ATdiag 0.02326 | val Vm 0.027841 ATdiag 0.03820 | best 0.025970@810 | eta 14.3 min
+  fold 4 epoch 1000/5000 | train Vm 0.019149 ATdiag 0.02232 | val Vm 0.027740 ATdiag 0.03803 | best 0.025941@930 | eta 14.0 min
+  fold 4 epoch 1100/5000 | train Vm 0.018377 ATdiag 0.02100 | val Vm 0.026359 ATdiag 0.03538 | best 0.025941@930 | eta 13.6 min
+  fold 4 epoch 1200/5000 | train Vm 0.018453 ATdiag 0.02117 | val Vm 0.029764 ATdiag 0.04198 | best 0.025941@930 | eta 13.3 min
+  fold 4 epoch 1300/5000 | train Vm 0.017851 ATdiag 0.02018 | val Vm 0.028891 ATdiag 0.04026 | best 0.025941@930 | eta 12.9 min
+  fold 4 epoch 1400/5000 | train Vm 0.020767 ATdiag 0.02500 | val Vm 0.027613 ATdiag 0.03771 | best 0.025941@930 | eta 12.5 min
+  fold 4 epoch 1500/5000 | train Vm 0.017882 ATdiag 0.02015 | val Vm 0.028105 ATdiag 0.03820 | best 0.025941@930 | eta 12.2 min
+  fold 4 epoch 1600/5000 | train Vm 0.017268 ATdiag 0.01910 | val Vm 0.028799 ATdiag 0.03957 | best 0.025941@930 | eta 11.8 min
+  fold 4 epoch 1700/5000 | train Vm 0.018647 ATdiag 0.02142 | val Vm 0.026988 ATdiag 0.03640 | best 0.025941@930 | eta 11.5 min
+  fold 4 epoch 1800/5000 | train Vm 0.016985 ATdiag 0.01863 | val Vm 0.026972 ATdiag 0.03641 | best 0.025941@930 | eta 11.1 min
+  fold 4 epoch 1900/5000 | train Vm 0.016747 ATdiag 0.01838 | val Vm 0.026951 ATdiag 0.03630 | best 0.025941@930 | eta 10.8 min
+  fold 4 epoch 2000/5000 | train Vm 0.017133 ATdiag 0.01887 | val Vm 0.028348 ATdiag 0.03926 | best 0.025941@930 | eta 10.4 min
+  fold 4 epoch 2100/5000 | train Vm 0.017038 ATdiag 0.01874 | val Vm 0.028450 ATdiag 0.03893 | best 0.025941@930 | eta 10.1 min
+  fold 4 epoch 2200/5000 | train Vm 0.017057 ATdiag 0.01878 | val Vm 0.027354 ATdiag 0.03718 | best 0.025941@930 | eta 9.7 min
+  fold 4 epoch 2300/5000 | train Vm 0.016489 ATdiag 0.01779 | val Vm 0.027820 ATdiag 0.03820 | best 0.025941@930 | eta 9.4 min
+  fold 4 epoch 2400/5000 | train Vm 0.016636 ATdiag 0.01809 | val Vm 0.028765 ATdiag 0.03958 | best 0.025941@930 | eta 9.0 min
+  fold 4 epoch 2500/5000 | train Vm 0.016657 ATdiag 0.01815 | val Vm 0.028056 ATdiag 0.03890 | best 0.025941@930 | eta 8.7 min
+  fold 4 epoch 2600/5000 | train Vm 0.016525 ATdiag 0.01794 | val Vm 0.027702 ATdiag 0.03806 | best 0.025941@930 | eta 8.3 min
+  fold 4 epoch 2700/5000 | train Vm 0.016937 ATdiag 0.01855 | val Vm 0.030021 ATdiag 0.04189 | best 0.025941@930 | eta 8.0 min
+  fold 4 epoch 2800/5000 | train Vm 0.016373 ATdiag 0.01765 | val Vm 0.028398 ATdiag 0.03975 | best 0.025941@930 | eta 7.6 min
+  fold 4 epoch 2900/5000 | train Vm 0.016420 ATdiag 0.01769 | val Vm 0.027446 ATdiag 0.03767 | best 0.025941@930 | eta 7.3 min
+  fold 4 epoch 3000/5000 | train Vm 0.017228 ATdiag 0.01900 | val Vm 0.028873 ATdiag 0.04051 | best 0.025941@930 | eta 6.9 min
+  fold 4 epoch 3100/5000 | train Vm 0.016499 ATdiag 0.01791 | val Vm 0.027143 ATdiag 0.03668 | best 0.025941@930 | eta 6.6 min
+  fold 4 epoch 3200/5000 | train Vm 0.015796 ATdiag 0.01687 | val Vm 0.028627 ATdiag 0.03958 | best 0.025941@930 | eta 6.2 min
+  fold 4 epoch 3300/5000 | train Vm 0.015763 ATdiag 0.01675 | val Vm 0.028995 ATdiag 0.04015 | best 0.025941@930 | eta 5.9 min
+  fold 4 epoch 3400/5000 | train Vm 0.015591 ATdiag 0.01642 | val Vm 0.027876 ATdiag 0.03804 | best 0.025941@930 | eta 5.5 min
+  fold 4 epoch 3500/5000 | train Vm 0.015714 ATdiag 0.01661 | val Vm 0.028668 ATdiag 0.03975 | best 0.025941@930 | eta 5.2 min
+  fold 4 epoch 3600/5000 | train Vm 0.015994 ATdiag 0.01708 | val Vm 0.029334 ATdiag 0.04097 | best 0.025941@930 | eta 4.8 min
+  fold 4 epoch 3700/5000 | train Vm 0.016683 ATdiag 0.01819 | val Vm 0.028606 ATdiag 0.03986 | best 0.025941@930 | eta 4.5 min
+  fold 4 epoch 3800/5000 | train Vm 0.017776 ATdiag 0.01976 | val Vm 0.026665 ATdiag 0.03601 | best 0.025941@930 | eta 4.1 min
+  fold 4 epoch 3900/5000 | train Vm 0.016679 ATdiag 0.01806 | val Vm 0.028929 ATdiag 0.04010 | best 0.025941@930 | eta 3.8 min
+  fold 4 epoch 4000/5000 | train Vm 0.016086 ATdiag 0.01716 | val Vm 0.028281 ATdiag 0.03870 | best 0.025941@930 | eta 3.5 min
+  fold 4 epoch 4100/5000 | train Vm 0.015839 ATdiag 0.01685 | val Vm 0.027744 ATdiag 0.03742 | best 0.025941@930 | eta 3.1 min
+  fold 4 epoch 4200/5000 | train Vm 0.015665 ATdiag 0.01655 | val Vm 0.028937 ATdiag 0.03992 | best 0.025941@930 | eta 2.8 min
+  fold 4 epoch 4300/5000 | train Vm 0.015845 ATdiag 0.01688 | val Vm 0.029817 ATdiag 0.04195 | best 0.025941@930 | eta 2.4 min
+  fold 4 epoch 4400/5000 | train Vm 0.015460 ATdiag 0.01625 | val Vm 0.028644 ATdiag 0.03934 | best 0.025941@930 | eta 2.1 min
+  fold 4 epoch 4500/5000 | train Vm 0.016092 ATdiag 0.01722 | val Vm 0.029673 ATdiag 0.04125 | best 0.025941@930 | eta 1.7 min
+  fold 4 epoch 4600/5000 | train Vm 0.016468 ATdiag 0.01768 | val Vm 0.029640 ATdiag 0.04101 | best 0.025941@930 | eta 1.4 min
+  fold 4 epoch 4700/5000 | train Vm 0.015539 ATdiag 0.01636 | val Vm 0.028624 ATdiag 0.03926 | best 0.025941@930 | eta 1.0 min
+  fold 4 epoch 4800/5000 | train Vm 0.015854 ATdiag 0.01680 | val Vm 0.028866 ATdiag 0.03984 | best 0.025941@930 | eta 0.7 min
+  fold 4 epoch 4900/5000 | train Vm 0.015625 ATdiag 0.01653 | val Vm 0.028618 ATdiag 0.03904 | best 0.025941@930 | eta 0.3 min
+  fold 4 epoch 4999/5000 | train Vm 0.016198 ATdiag 0.01738 | val Vm 0.030397 ATdiag 0.04283 | best 0.025941@930 | eta 0.0 min
+  fold 4 test  1/25 IMMC202_20170310_merge_000 | Vm MAE 3.321 mV | AT 8.122/9.397 ms | dVdt 0.361
+  fold 4 test  2/25 IMMC064_20171107_merge_000 | Vm MAE 1.954 mV | AT 4.508/5.110 ms | dVdt 0.359
+  fold 4 test  3/25 IMMC052_20170201_merge_000 | Vm MAE 1.901 mV | AT 4.364/5.109 ms | dVdt 0.359
+  fold 4 test  4/25 IMMC302_20170802_merge_000 | Vm MAE 1.979 mV | AT 4.625/5.379 ms | dVdt 0.357
+  fold 4 test  5/25 IMMC001_20160127_merge_000 | Vm MAE 1.906 mV | AT 4.496/5.041 ms | dVdt 0.342
+  fold 4 test  6/25 IMMC078_20180214_merge_000 | Vm MAE 1.658 mV | AT 3.697/4.347 ms | dVdt 0.357
+  fold 4 test  7/25 IMMC043_20161122_merge_000 | Vm MAE 1.735 mV | AT 4.017/4.361 ms | dVdt 0.352
+  fold 4 test  8/25 IMMC002_20150721_merge_000 | Vm MAE 1.952 mV | AT 4.554/4.930 ms | dVdt 0.358
+  fold 4 test  9/25 IMMC045_20161215_merge_000 | Vm MAE 1.807 mV | AT 4.191/4.286 ms | dVdt 0.359
+  fold 4 test 10/25 IMMC201_20170214_merge_000 | Vm MAE 1.962 mV | AT 4.622/5.241 ms | dVdt 0.351
+  fold 4 test 11/25 IMMC143_20190821_merge_000 | Vm MAE 2.471 mV | AT 6.059/6.184 ms | dVdt 0.351
+  fold 4 test 12/25 IMMC131_20181129_merge_000 | Vm MAE 2.648 mV | AT 6.489/6.727 ms | dVdt 0.346
+  fold 4 test 13/25 IMMC305_20170406_merge_000 | Vm MAE 2.153 mV | AT 5.011/5.968 ms | dVdt 0.363
+  fold 4 test 14/25 IMMC110_20180514_merge_000 | Vm MAE 1.651 mV | AT 3.778/4.020 ms | dVdt 0.350
+  fold 4 test 15/25 IMMC125_20181003_merge_000 | Vm MAE 1.675 mV | AT 3.835/3.962 ms | dVdt 0.361
+  fold 4 test 16/25 IMMC121_20180904_merge_000 | Vm MAE 3.098 mV | AT 7.828/7.179 ms | dVdt 0.345
+  fold 4 test 17/25 IMMC319_20190225_merge_000 | Vm MAE 2.473 mV | AT 5.968/6.900 ms | dVdt 0.345
+  fold 4 test 18/25 IMMC039_20170418_merge_000 | Vm MAE 1.680 mV | AT 3.814/4.199 ms | dVdt 0.359
+  fold 4 test 19/25 IMMC086_20170926_merge_000 | Vm MAE 2.072 mV | AT 4.807/5.904 ms | dVdt 0.352
+  fold 4 test 20/25 IMMC107_20180502_merge_000 | Vm MAE 2.012 mV | AT 4.713/5.131 ms | dVdt 0.358
+  fold 4 test 21/25 IMMC205_20170814_merge_000 | Vm MAE 1.685 mV | AT 3.912/4.085 ms | dVdt 0.344
+  fold 4 test 22/25 IMMC029_20160609_merge_000 | Vm MAE 1.760 mV | AT 4.098/4.440 ms | dVdt 0.352
+  fold 4 test 23/25 IMMC137_20190121_merge_000 | Vm MAE 2.072 mV | AT 4.940/5.100 ms | dVdt 0.358
+  fold 4 test 24/25 IMMC077_20180207_merge_000 | Vm MAE 1.784 mV | AT 4.106/4.771 ms | dVdt 0.350
+  fold 4 test 25/25 IMMC146_20190911_merge_000 | Vm MAE 2.248 mV | AT 5.249/6.421 ms | dVdt 0.356
+  fold 4 result: Vm 2.066 +/- 0.428 mV | direct AT 4.872 +/- 1.159 ms | decoded AT 5.368 +/- 1.232 ms | dVdt 0.354 +/- 0.006
+
+========================================================================
+Geo_DeepONet_PCA 5-fold pooled (N=125 hearts)
+Fold-specific train-only decoder basis and normalization
+V_m Rel L2       : 0.1413 +/- 0.0230
+V_m MAE          : 2.045 +/- 0.476 mV
+direct AT Rel L2 : 0.0755 +/- 0.0194
+direct AT MAE    : 4.867 +/- 1.303 ms
+decoded AT MAE   : 5.074 +/- 1.271 ms
+upstroke fraction: 0.351 +/- 0.004
+feature inference: 0.0034 +/- 0.0032 s/heart
+PCA feature MAE   : PC1=8.398 +/- 0.747, PC2=41.294 +/- 0.764, PC3=41.002 +/- 2.483, PC4=45.035 +/- 2.968, PC5=7.847 +/- 1.285
+
+Per fold:
+  fold 0: Vm MAE=2.064 +/- 0.532 mV, direct AT=4.942 +/- 1.448 ms, dVdt=0.353 +/- 0.003, best=0.026201@1310, train=17.3 min
+  fold 1: Vm MAE=1.960 +/- 0.326 mV, direct AT=4.713 +/- 0.883 ms, dVdt=0.347 +/- 0.002, best=0.023529@1530, train=17.4 min
+  fold 2: Vm MAE=2.191 +/- 0.642 mV, direct AT=5.330 +/- 1.765 ms, dVdt=0.351 +/- 0.002, best=0.026222@1710, train=17.7 min
+  fold 3: Vm MAE=1.942 +/- 0.333 mV, direct AT=4.479 +/- 0.874 ms, dVdt=0.352 +/- 0.003, best=0.025431@610, train=17.6 min
+  fold 4: Vm MAE=2.066 +/- 0.428 mV, direct AT=4.872 +/- 1.159 ms, dVdt=0.354 +/- 0.006, best=0.025941@930, train=17.3 min
+
+Total wall time: 92.5 min
+saved pooled outputs -> CV_5fold_5000ep_w200_d4_n2048_f601_vmloss
+=== DONE Thu Aug 13 03:54:38 AM +08 2026 ===

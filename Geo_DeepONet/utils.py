@@ -22,8 +22,9 @@ def ParseArgument():
     parser.add_argument('--lr', type=float, default=5e-4)
     parser.add_argument('--width', type=int, default=200)
     parser.add_argument('--depth', type=int, default=4)
-    parser.add_argument('--patience', type=int, default=1000,
-                        help='early-stop epochs without validation improvement; 0 disables')
+    parser.add_argument('--patience', type=int, default=0,
+                        help='early-stop epochs without validation improvement; '
+                             '0 disables (default: 0)')
     parser.add_argument('--seed', type=int, default=42)
     parser.add_argument('--save-step', type=int, default=10000, metavar='N',
                         help='save_step (default: 10000)')

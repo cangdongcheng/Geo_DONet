@@ -13,7 +13,7 @@
 # allocator fragmentation. ~0.46 min/ep at 3000 ep => ~23 h; 30 h leaves margin.
 
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/Geo_DONet_SIREN
+cd /home/svu/e1032484/Geo_DONet/Geo_DONet_SIREN
 
 echo "=== START $(date) ==="
 echo "node: $(hostname)"

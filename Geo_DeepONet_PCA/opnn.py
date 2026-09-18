@@ -12,6 +12,42 @@ def build_mlp(input_dim, width, depth):
     return nn.Sequential(*layers)
 
 
+class FeatureMLP(nn.Module):
+    """Pointwise [geometry, Cobiveco] -> standardized AT/PCA features.
+
+    Uses the same (B, geometry)/(N, coordinates) interface as FeatureDeepONet,
+    so both architectures share the waveform decoder and training procedure.
+    """
+
+    def __init__(self, geo_dim=60, coord_dim=4, width=200, depth=4, output_dim=6):
+        super().__init__()
+        self.geo_dim, self.coord_dim = geo_dim, coord_dim
+        self.width, self.depth, self.output_dim = width, depth, output_dim
+        self.net = nn.Sequential(build_mlp(geo_dim + coord_dim, width, depth),
+                                 nn.Linear(width, output_dim))
+
+    def forward(self, theta, coords):
+        batch, nodes = theta.shape[0], coords.shape[0]
+        inputs = torch.cat((theta[:, None, :].expand(batch, nodes, -1),
+                            coords[None, :, :].expand(batch, nodes, -1)), dim=-1)
+        return self.net(inputs)
+
+    def config(self):
+        return dict(architecture="mlp", geo_dim=self.geo_dim,
+                    coord_dim=self.coord_dim, width=self.width, depth=self.depth,
+                    output_dim=self.output_dim)
+
+
+def build_feature_model(config):
+    """Load either architecture; historical untagged configs are DeepONets."""
+    config = dict(config)
+    architecture = config.pop("architecture", "deeponet")
+    if architecture not in ("deeponet", "mlp"):
+        raise ValueError(f"unknown feature architecture: {architecture}")
+    model_class = FeatureMLP if architecture == "mlp" else FeatureDeepONet
+    return model_class(**config)
+
+
 class FeatureDeepONet(nn.Module):
     """Predict D nodewise features from geometry theta and spatial coordinate x.
 

@@ -1,0 +1,22 @@
+#!/bin/bash
+#PBS -N Geo_MLP_PCA
+#PBS -l select=1:ncpus=8:ngpus=1:mem=64gb
+#PBS -l walltime=02:00:00
+#PBS -j oe
+
+# Source first: the environment loader can return nonzero during conda cleanup.
+source /home/svu/e1032484/load_dimon_env.sh
+set -e
+cd /home/svu/e1032484/Geo_DONet/Geo_MLP_PCA
+export OMP_NUM_THREADS=8
+export MKL_NUM_THREADS=8
+export OPENBLAS_NUM_THREADS=8
+
+python -u main.py \
+    --device cuda --epochs 5000 \
+    --width 200 --depth 4 --n-components 5 \
+    --batch-size 8 --nodes-per-step 2048 --val-nodes 4096 \
+    --lr 5e-4 --feature-loss-weight 0 --patience 0 --seed 42
+
+python -u main.py --test-model --device cuda \
+    --model-path CheckPts/geomlp_pca_vmloss_k5_w200_d4_n2048_5000ep.pt

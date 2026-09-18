@@ -15,7 +15,7 @@
 # ~1.8 GB and f301 is 2.5x f121's temporal points — if it OOMs on the A40, drop --batch-size 16.
 
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/Geo_DONet_SIREN
+cd /home/svu/e1032484/Geo_DONet/Geo_DONet_SIREN
 
 echo "=== START $(date) ==="
 echo "node: $(hostname)"

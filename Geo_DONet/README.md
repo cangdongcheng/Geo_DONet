@@ -156,3 +156,40 @@ python main.py --test-model \
   --model-path ../Geo_DONet_ndiff/CheckPts/model_chkpts_geo_donet_5000ep_w300_lrsched_ndiff1.pt
 # -> V_m Rel L2 0.1482 ± 0.0127, MAE 4.26 ± 0.74 mV ; AT Rel L2 0.0952 ± 0.0229, MAE 6.15 ± 1.17 ms
 ```
+
+## Latent basis and effective-mode diagnostic
+
+Geo-DONet predicts `Y = B @ T.T`, where `B` contains branch outputs over
+hearts and `T` contains trunk outputs over space-time queries. The 300 raw
+trunk columns can be inspected as basis functions, but they are not uniquely
+defined: any invertible mixing of the branch channels combined with the inverse
+mixing of the trunk channels leaves the prediction unchanged. Raw
+orthogonality is therefore descriptive, not an invariant model property.
+
+`analyze_latent_modes.py` reports both raw channel cosine-Gram matrices and the
+invariant singular spectrum of the complete predicted field. It obtains the
+latter without constructing the enormous heart-by-query matrix:
+
+```text
+Y Y^T = B (T^T T) B^T
+```
+
+The primary mode count uses branch outputs centred across training hearts, so
+it measures geometry-dependent V_m variation rather than the common waveform.
+It reports numerical rank, K90/K95/K99/K99.9 energy counts, stable rank,
+participation rank, and entropy rank.
+
+Run on a GPU node:
+
+```bash
+qsub latent_modes.pbs
+```
+
+Outputs are written to:
+
+```text
+Predictions/geodonet_w300_d4_5000ep_lrsched/latent_modes_train/
+```
+
+The key files are `summary.txt`, `mode_spectrum.csv`, `mode_spectrum.png`,
+`raw_channel_cosine_gram.png`, and `effective_mode_time_profiles.png`.

@@ -18,7 +18,7 @@
 # margin so the LR schedule completes (a wall-kill truncates LinearLR).
 
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/Geo_DONet_clean
+cd /home/svu/e1032484/Geo_DONet/Geo_DONet
 
 echo "=== START $(date) ==="
 echo "node: $(hostname)"

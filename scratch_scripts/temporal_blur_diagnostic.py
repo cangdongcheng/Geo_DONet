@@ -40,7 +40,7 @@ from scipy.ndimage import gaussian_filter1d
 
 
 DEFAULT_PREDICTIONS = (
-    "/home/svu/e1032484/DIMON_learn/Geo_DONet/Predictions/"
+    "/home/svu/e1032484/Geo_DONet/Geo_DONet/Predictions/"
     "geodonet_w300_d4_5000ep_lrsched/predictions.npz"
 )
 DEFAULT_GROUND_TRUTH = "/home/svu/e1032484/scratch/geo_donet_data_f601.npz"

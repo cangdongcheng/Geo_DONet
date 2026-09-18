@@ -9,7 +9,7 @@
 # loader's initial conda deactivate may return status 1.
 
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/Geo_DeepONet_PCA
+cd /home/svu/e1032484/Geo_DONet/Geo_DeepONet_PCA
 
 echo "=== START $(date) ==="
 echo "node: $(hostname)"

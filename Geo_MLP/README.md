@@ -20,7 +20,7 @@ Run on a GPU node:
 
 ```bash
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/Geo_MLP
+cd /home/svu/e1032484/Geo_DONet/Geo_MLP
 
 python -u main.py \
   --device cuda \
@@ -77,6 +77,21 @@ same width because it contains one MLP rather than separate branch and trunk
 MLPs. This is the simplest architectural ablation; parameter matching can be a
 later experiment if needed.
 
+## Results (2026-08-12)
+
+| protocol | V_m Rel L2 | V_m MAE | interpolated AT MAE |
+|---|---:|---:|---:|
+| fixed 95/5/25 split | 0.1719 +/- 0.0311 | **3.82 +/- 0.94 mV** | 6.33 +/- 1.84 ms |
+| five-fold pooled (125 hearts) | 0.2080 +/- 0.0926 | **5.09 +/- 3.70 mV** | 8.41 +/- 5.45 ms |
+| Geo_DONet five-fold reference | 0.1534 +/- 0.0235 | **4.64 +/- 1.61 mV** | 6.03 +/- 1.23 ms |
+
+The MLP outperformed the Geo_DONet benchmark on the original fixed split, but
+the advantage did not survive five-fold cross-validation. Fold 2 was especially
+difficult (7.32 mV fold MAE), and the pooled MLP variance is much larger than
+Geo_DONet's. The correct current conclusion is that a simple MLP is competitive
+and useful as an ablation, but there is no evidence yet that it generalizes
+better than the operator.
+
 ## Five-fold cross-validation
 
 The CV protocol matches `Geo_DONet/main_cv.py` and the run recorded in
@@ -93,7 +108,7 @@ The CV protocol matches `Geo_DONet/main_cv.py` and the run recorded in
 Submit:
 
 ```bash
-cd /home/svu/e1032484/DIMON_learn/Geo_MLP
+cd /home/svu/e1032484/Geo_DONet/Geo_MLP
 qsub cv.pbs
 ```
 

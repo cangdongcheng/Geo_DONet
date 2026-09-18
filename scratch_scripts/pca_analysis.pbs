@@ -14,7 +14,7 @@
 # abort the job (see VANDA_HANDOFF Vanda PBS conventions).
 
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/scratch_scripts
+cd /home/svu/e1032484/Geo_DONet/scratch_scripts
 
 STEP=${STEP:-1}
 TAG=$([ "$STEP" = 1 ] && echo f601 || ([ "$STEP" = 2 ] && echo f301 || echo f121))

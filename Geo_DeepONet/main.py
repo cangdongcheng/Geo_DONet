@@ -207,7 +207,7 @@ def main():
         train_ds = TensorDataset(f_train_tensor, u_train_tensor)
         train_loader = DataLoader(train_ds, batch_size=batch_size, shuffle=True)
 
-        train_loss_his, test_loss_his = [], []
+        train_loss_his, val_loss_his = [], []
         best_val_loss = float('inf')
         best_epoch = -1
 
@@ -230,9 +230,7 @@ def main():
             with torch.no_grad():
                 y_val = model.forward(f_val_tensor, x_tensor)
                 val_loss = ((y_val - u_val_tensor) ** 2).mean().item()
-                y_test = model.forward(f_test_tensor, x_tensor)
-                test_loss = ((y_test - u_test_tensor) ** 2).mean().item()
-                test_loss_his.append(test_loss)
+                val_loss_his.append(val_loss)
 
             if val_loss < best_val_loss:
                 best_val_loss = val_loss
@@ -240,12 +238,13 @@ def main():
                 torch.save({'model_state_dict': model.state_dict()}, model_path)
 
             if epoch % 100 == 0:
-                # Compute physical MAE for monitoring
-                y_test_phy = to_numpy(y_test) * u_std_train + u_mean_train
-                mae = np.abs(y_test_phy - u_test_raw).mean()
+                # Validation-only monitoring; the test set remains untouched
+                # until an explicit --test-model 1 run.
+                y_val_phy = to_numpy(y_val) * u_std_train + u_mean_train
+                val_mae = np.abs(y_val_phy - u_val_raw).mean()
                 print(f'Epoch: {epoch} | Train: {avg_train_loss:.6f} | '
                       f'Val: {val_loss:.6f} | Best Val: {best_val_loss:.6f} | '
-                      f'Test: {test_loss:.6f} | MAE: {mae:.2f} ms', flush=True)
+                      f'Val MAE: {val_mae:.2f} ms', flush=True)
 
             if args.patience > 0 and best_epoch >= 0 and epoch - best_epoch >= args.patience:
                 print(f"Early stop at epoch {epoch}: no validation improvement for "
@@ -255,13 +254,13 @@ def main():
         print(f"Total training time: {int((time.time() - tic) / 60)} min")
         np.savetxt(f'./Predictions/{save_directory}/train_loss.txt',
                    np.array(train_loss_his))
-        np.savetxt(f'./Predictions/{save_directory}/test_loss.txt',
-                   np.array(test_loss_his))
+        np.savetxt(f'./Predictions/{save_directory}/val_loss.txt',
+                   np.array(val_loss_his))
 
         # Loss curve
         fig, ax = plt.subplots(figsize=(8, 5))
         ax.semilogy(train_loss_his, label='Train', alpha=0.8)
-        ax.semilogy(test_loss_his, label='Test', alpha=0.8)
+        ax.semilogy(val_loss_his, label='Validation', alpha=0.8)
         ax.set_xlabel('Epoch')
         ax.set_ylabel('MSE Loss')
         ax.set_title(f'{save_directory}')
@@ -279,6 +278,18 @@ def main():
         model.eval()
 
         print("--- Generating Evaluation ---")
+        summary_lines = [
+            "=== Geo-DeepONet activation-time test ===",
+            f"checkpoint: {model_path}",
+            f"data: {args.data_path}",
+            f"AT source: {at_source}",
+            (f"split: {num_train_hearts} train / {num_val_hearts} val / "
+             f"{num_test_hearts} test (evaluating global indices "
+             f"{num_train_hearts + num_val_hearts}:"
+             f"{num_train_hearts + num_val_hearts + num_test_hearts - 1})"),
+            f"model: geo {dim_br_geo}, trunk {dim_tr}, params {n_params:,}",
+            "",
+        ]
         num_viz_hearts = min(args.viz_hearts, num_test_hearts)
 
         # Load Cartesian coordinates only when plots were requested.
@@ -308,9 +319,12 @@ def main():
             y_test_norm = np.stack(all_pred)
             u_test_pred = y_test_norm * u_std_train + u_mean_train
 
-            print(f"Inference: {np.mean(infer_times)*1000:.1f} +/- "
-                  f"{np.std(infer_times)*1000:.1f} ms/case "
-                  f"(total {np.sum(infer_times):.2f} s for {num_test_hearts} cases)")
+            inference_message = (f"Inference: {np.mean(infer_times)*1000:.1f} +/- "
+                                 f"{np.std(infer_times)*1000:.1f} ms/case "
+                                 f"(total {np.sum(infer_times):.2f} s for "
+                                 f"{num_test_hearts} cases)")
+            print(inference_message)
+            summary_lines.extend([inference_message, ""])
 
             # Training-set viz predictions (small)
             f_train_subset = f_train_tensor[:num_viz_hearts]
@@ -319,8 +333,11 @@ def main():
             u_train_phy = u_train_raw[:num_viz_hearts]
 
         # --- Error Statistics ---
-        print(f"\n{'Case':<35} {'Rel L2':>10} {'MAE (ms)':>10}")
-        print("-" * 58)
+        metric_header = f"{'Case':<35} {'Rel L2':>10} {'MAE (ms)':>10}"
+        separator = "-" * 58
+        print("\n" + metric_header)
+        print(separator)
+        summary_lines.extend([metric_header, separator])
         l2_errors, mae_errors = [], []
         for i in range(num_test_hearts):
             u_p = u_test_pred[i]
@@ -329,11 +346,17 @@ def main():
             mae_err = np.mean(np.abs(u_p - u_t))
             l2_errors.append(l2_err)
             mae_errors.append(mae_err)
-            print(f"{case_names[num_train_hearts + num_val_hearts + i]:<35}"
-                  f" {l2_err:10.4f} {mae_err:10.2f}")
-        print("-" * 58)
-        print(f"Rel L2 = {np.mean(l2_errors):.4f} ± {np.std(l2_errors):.4f} | "
-              f"MAE = {np.mean(mae_errors):.2f} ± {np.std(mae_errors):.2f} ms")
+            metric_line = (f"{str(case_names[num_train_hearts + num_val_hearts + i]):<35}"
+                           f" {l2_err:10.4f} {mae_err:10.2f}")
+            print(metric_line)
+            summary_lines.append(metric_line)
+        aggregate_message = (f"Rel L2 = {np.mean(l2_errors):.4f} +/- "
+                             f"{np.std(l2_errors):.4f} | "
+                             f"MAE = {np.mean(mae_errors):.2f} +/- "
+                             f"{np.std(mae_errors):.2f} ms")
+        print(separator)
+        print(aggregate_message)
+        summary_lines.extend([separator, aggregate_message])
 
         def save_colorbar(cmap, vmin, vmax, label, out_path,
                           orientation='vertical', half=False):
@@ -435,6 +458,10 @@ def main():
             pred=u_test_pred, true=u_test_raw,
             l2_errors=np.array(l2_errors), mae_errors=np.array(mae_errors),
             case_names=case_names[num_train_hearts + num_val_hearts:])
+        summary_path = os.path.join(dump_test, "test_summary.txt")
+        with open(summary_path, "w") as handle:
+            handle.write("\n".join(summary_lines) + "\n")
+        print(f"Saved test summary to {summary_path}")
         print(f"\nEvaluation complete. Plots in {dump_test}")
 
 

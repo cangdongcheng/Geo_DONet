@@ -1,5 +1,10 @@
 # Geo-DeepONet-PCA
 
+The architecture ablation in `../Geo_MLP_PCA/` uses these same training and
+evaluation routines with a concatenated-input MLP (`--architecture mlp`).
+The default here remains DeepONet, including support for existing checkpoints.
+See `../Geo_MLP_PCA/README.md` for matched settings and parameter counts.
+
 Geometry-conditioned surrogate for the phase-aligned V_m decoder. The network
 predicts six intermediate values at every canonical mesh node:
 
@@ -74,7 +79,7 @@ node with at least 32 GB memory:
 
 ```bash
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/Geo_DeepONet_PCA
+cd /home/svu/e1032484/Geo_DONet/Geo_DeepONet_PCA
 python -u prepare_data.py
 ```
 
@@ -128,7 +133,7 @@ On an interactive A40 node:
 
 ```bash
 source ~/load_dimon_env.sh
-cd /home/svu/e1032484/DIMON_learn/Geo_DeepONet_PCA
+cd /home/svu/e1032484/Geo_DONet/Geo_DeepONet_PCA
 python -u main.py \
   --device cuda \
   --epochs 5000 \
@@ -173,6 +178,27 @@ python -u main.py --test-model --device cuda --skip-vm-eval \
 ```
 
 Outputs are placed in `Predictions/<checkpoint stem>/Test/`.
+
+### Export one prediction and absolute error to ParaView
+
+After testing has produced `test_features.npz`, reconstruct one test heart and
+write `Vm_pred`, `Vm_true`, `Vm_abs_error`, and `Vm_signed_error` as VTU point
+fields:
+
+```bash
+python -u export_vtu.py --case 100
+```
+
+The default writes every fifth f601 frame (121 VTU files) and a PVD time-series
+index. Use `--frame-stride 1` only when all 601 files are needed. A separate
+`error_summary.vtu` stores each node's time-averaged MAE/RMSE and maximum error.
+
+Default output:
+
+```text
+Predictions/geodeeponet_pca_vmloss_k5_w200_d4_n2048_5000ep/Test/
+  vtu/<case_name>/Vm_prediction_error.pvd
+```
 
 ## 4. Leakage-safe five-fold cross-validation
 
