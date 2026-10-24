@@ -1,0 +1,46 @@
+# Python environments and caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# Generated data, checkpoints and mesh exports belong on scratch
+*.npy
+*.npz
+*.mat
+*.h5
+*.hdf5
+*.pt
+*.pth
+*.ckpt
+*.vtu
+*.vtk
+*.pvd
+*.vtp
+/datasets/
+/runs/
+/evaluation/
+/predictions/
+/visualization/
+/outputs/
+/tmp/
+/matplotlib/
+
+# Local HPC submission scripts and site-specific paths
+/pbs/
+*.pbs
+
+# Local configuration, scheduler output and editor state
+.env
+.env.*
+*.log
+*.out
+*.err
+*.o[0-9]*
+*.e[0-9]*
+.DS_Store
+.idea/
+.vscode/

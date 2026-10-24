@@ -1,0 +1,19 @@
+{
+  "n_train": 95,
+  "n_val": 5,
+  "folds": 5,
+  "n_components": 5,
+  "reference_at": 80.0,
+  "at_threshold": -10.0,
+  "seed": 42,
+  "width": 200,
+  "depth": 4,
+  "epochs": 5000,
+  "batch_size": 8,
+  "nodes_per_step": 2048,
+  "val_nodes": 4096,
+  "lr": 0.0005,
+  "val_every": 10,
+  "patience": 0,
+  "feature_loss_weight": 0.0
+}
