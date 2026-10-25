@@ -7,14 +7,14 @@ from unittest.mock import patch
 
 import numpy as np
 
-from Geo_DONet_clean.utils.export_common import resolve_export_manifest, select_cases
-from Geo_DONet_clean.utils.neighbours import build_neighbour_graph, neighbour_fields
+from Geo_DONet.utils.export_common import resolve_export_manifest, select_cases
+from Geo_DONet.utils.neighbours import build_neighbour_graph, neighbour_fields
 
 
 class NeighbourTests(unittest.TestCase):
     def test_parallel_writer_error_does_not_publish_complete_series(self):
         import meshio
-        from Geo_DONet_clean.utils.export_vtu import write_case
+        from Geo_DONet.utils.export_vtu import write_case
 
         tetrahedra = np.array([[0, 1, 2, 3]])
         points = np.array([[0., 0., 0.], [1., 0., 0.], [0., 1., 0.], [0., 0., 1.]])

@@ -1,4 +1,4 @@
-# Geo_DONet_clean
+# Geo_DONet
 
 Self-contained geometry-conditioned DeepONet with phase-aligned temporal PCA.
 Code and small settings live here. Raw arrays, preprocessing artifacts, checkpoints,
@@ -6,8 +6,8 @@ logs, predictions and figures live in external storage, separate from the source
 
 Examples use `/scratch/project/geo_donet` for data and results. Replace this prefix
 with an available storage location outside your home and source directories.
-Pass `--output` explicitly for preparation, training and cross-validation so the
-destination is independent of installation-specific defaults.
+`--output` is required for preparation, training and cross-validation, so every
+destination is chosen explicitly.
 
 The model predicts `[AT(x), c1(x), ..., cK(x)]` from heart geometry `theta` and
 canonical Cobiveco coordinates. A frozen node-specific template plus temporal PCA
@@ -64,20 +64,20 @@ your CPU or GPU and the available drivers.
 For example, create a virtual environment in your checkout:
 
 ```bash
-cd /path/to/projects/Geo_DONet_clean
+cd /path/to/projects/Geo_DONet
 python3 -m venv .venv
 source .venv/bin/activate
 python -m pip install numpy torch matplotlib meshio
 ```
 
-The command-line entry points import the `Geo_DONet_clean` package. Keep that
-checkout directory name, even if the remote repository has a different name:
-`git clone <repository-url> Geo_DONet_clean`.
+The command-line entry points import the `Geo_DONet` package. Keep that
+checkout directory name:
+`git clone <repository-url> Geo_DONet`.
 
 No scikit-learn dependency is needed: waveform PCA uses the eigendecomposition
 of temporal covariance. `python main.py --help` works without importing the ML
 stack. Run the examples from the checkout root. Absolute script paths also work;
-`python -m Geo_DONet_clean.main` works from its parent directory.
+`python -m Geo_DONet.main` works from its parent directory.
 
 For large datasets on a cluster, run preparation, training and exports in a
 compute allocation. Set numerical-library thread counts to fit the CPU allocation;
@@ -394,7 +394,7 @@ From the directory containing the checkout, with your Python environment active:
 ```bash
 cd /path/to/projects
 OMP_NUM_THREADS=1 OPENBLAS_NUM_THREADS=1 MKL_NUM_THREADS=1 \
-  python -m unittest Geo_DONet_clean.tests.test_workflow Geo_DONet_clean.tests.test_neighbours -v
+  python -m unittest Geo_DONet.tests.test_workflow Geo_DONet.tests.test_neighbours -v
 ```
 
 Checks use tiny synthetic arrays in `/tmp`: held-out-data isolation, exact decoder
@@ -404,5 +404,5 @@ and output routing. Export checks cover two cases, reference-mesh ordering,
 hand-calculated neighbour contrasts, and duplicate-edge/isolated-node handling.
 They do not load the cardiac cohort or submit HPC jobs.
 Two optional parity tests compare against a legacy implementation at
-`Geo_DONet/Geo_DeepONet_PCA`, relative to the checkout's parent directory. They
+`Geo_DONet_experiments/Geo_DeepONet_PCA`, relative to the checkout's parent directory. They
 skip when that source is absent; the workflow/export checks run independently.

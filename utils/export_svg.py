@@ -7,8 +7,8 @@ if __package__ in (None, ''):
 import os
 import numpy as np
 
-from Geo_DONet_clean.artifacts import write_json
-from Geo_DONet_clean.utils.export_common import export_parser, load_export
+from Geo_DONet.artifacts import write_json
+from Geo_DONet.utils.export_common import export_parser, load_export
 
 
 def main(argv=None):
@@ -21,7 +21,7 @@ def main(argv=None):
         raise ValueError('Snapshot times must lie within the decoder time grid')
     frames = np.unique([np.argmin(np.abs(times-t)) for t in requested])
     os.environ.setdefault('MPLCONFIGDIR', str(output / '.matplotlib'))
-    from Geo_DONet_clean.utils import rendering as viz
+    from Geo_DONet.utils import rendering as viz
     viz._init_plot_worker(mesh.points)
     for frame in frames:
         for name in ('Vm_pred', 'Vm_true', 'Vm_abs_error'):

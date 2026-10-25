@@ -6,15 +6,15 @@ if __package__ in (None, ''):
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from Geo_DONet_clean.artifacts import experiment_directory, digest, record_invocation, write_json
-from Geo_DONet_clean.config import parse_config
+from Geo_DONet.artifacts import experiment_directory, digest, record_invocation, write_json
+from Geo_DONet.config import parse_config
 
 
 def prepare(args):
     """Create a reusable dataset preparation; the raw input is never modified."""
-    from Geo_DONet_clean.data_handling.loading import import_raw, load_raw
-    from Geo_DONet_clean.data_handling.preprocessing import activation_targets, prepare_fold
-    from Geo_DONet_clean.data_handling.splits import make_splits
+    from Geo_DONet.data_handling.loading import import_raw, load_raw
+    from Geo_DONet.data_handling.preprocessing import activation_targets, prepare_fold
+    from Geo_DONet.data_handling.splits import make_splits
 
     # 1. Create a named (or dated) scratch folder and record preprocessing settings.
     prepared_folder = experiment_directory(args.output, args.name)

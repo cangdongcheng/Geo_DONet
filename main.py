@@ -2,21 +2,21 @@
 import json
 from pathlib import Path
 
-# Allow both `python main.py` and `python -m Geo_DONet_clean.main`.
+# Allow both `python main.py` and `python -m Geo_DONet.main`.
 if __package__ in (None, ''):
     import sys
     sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from Geo_DONet_clean.artifacts import (
+from Geo_DONet.artifacts import (
     checkpoint_directory, experiment_directory, log_run, new_directory,
     record_invocation, write_json,
 )
-from Geo_DONet_clean.config import parse_config
+from Geo_DONet.config import parse_config
 
 
 def select_manifests(args):
     """Resolve the requested preparation and restore its fixed split/PCA settings."""
-    from Geo_DONet_clean.data_handling.loading import fold_manifests
+    from Geo_DONet.data_handling.loading import fold_manifests
 
     if args.mode == 'predict' or (args.mode == 'evaluate' and args.input is None):
         return []
@@ -43,9 +43,9 @@ def run(args):
     # Imports stay after parsing so -h/--help needs no PyTorch environment.
     import numpy as np
     import torch
-    from Geo_DONet_clean.cross_validation import cross_validate
-    from Geo_DONet_clean.evaluate import evaluate
-    from Geo_DONet_clean.train import set_seed, train
+    from Geo_DONet.cross_validation import cross_validate
+    from Geo_DONet.evaluate import evaluate
+    from Geo_DONet.train import set_seed, train
 
     # 1. Select the device and the prepared dataset.
     device_name = args.device or ('cuda' if torch.cuda.is_available() else 'cpu')

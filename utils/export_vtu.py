@@ -9,8 +9,8 @@ import csv
 from concurrent.futures import ThreadPoolExecutor
 import time
 
-from Geo_DONet_clean.artifacts import new_directory, write_json
-from Geo_DONet_clean.utils.export_common import (
+from Geo_DONet.artifacts import new_directory, write_json
+from Geo_DONet.utils.export_common import (
     decode_export_case,
     export_parser,
     load_export_context,
@@ -22,7 +22,7 @@ def write_case(output, mesh, tetrahedra, times, fields, graph, frame_stride, wor
     """Share one reconstructed heart across workers; write independent frame files."""
     import meshio
     import numpy as np
-    from Geo_DONet_clean.utils.neighbours import neighbour_fields
+    from Geo_DONet.utils.neighbours import neighbour_fields
 
     series = output / 'series'
     series.mkdir()
@@ -129,7 +129,7 @@ def main(argv=None):
         parser.error('--workers must be positive')
 
     import numpy as np
-    from Geo_DONet_clean.utils.neighbours import build_neighbour_graph
+    from Geo_DONet.utils.neighbours import build_neighbour_graph
 
     # 1. Load shared inputs once and choose two saved cases by default.
     print('Loading predictions, verifying preparation, and reading the reference mesh...', flush=True)

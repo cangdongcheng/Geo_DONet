@@ -12,17 +12,17 @@ import unittest
 import numpy as np
 import torch
 
-from Geo_DONet_clean.artifacts import dated_directory, digest
-from Geo_DONet_clean.config import parse_config
-from Geo_DONet_clean.data_handling.loading import fold_manifests, load_prepared
-from Geo_DONet_clean.data_handling.splits import make_splits
-from Geo_DONet_clean.decoder import DifferentiablePhaseDecoder, decode_features
-from Geo_DONet_clean.main import run
-from Geo_DONet_clean.prepare_dataset import prepare
+from Geo_DONet.artifacts import dated_directory, digest
+from Geo_DONet.config import parse_config
+from Geo_DONet.data_handling.loading import fold_manifests, load_prepared
+from Geo_DONet.data_handling.splits import make_splits
+from Geo_DONet.decoder import DifferentiablePhaseDecoder, decode_features
+from Geo_DONet.main import run
+from Geo_DONet.prepare_dataset import prepare
 
 
 ROOT = Path(__file__).resolve().parents[2]
-LEGACY = ROOT/'Geo_DONet/Geo_DeepONet_PCA'
+LEGACY = ROOT/'Geo_DONet_experiments/Geo_DeepONet_PCA'
 
 
 def legacy_module(name, path):
@@ -154,8 +154,8 @@ class WorkflowTests(unittest.TestCase):
             self.assertNotIn('true', result.files)
         # Saved compact features are sufficient for both visualization paths.
         import meshio
-        from Geo_DONet_clean.utils.export_vtu import main as export_vtu
-        from Geo_DONet_clean.utils.export_svg import main as export_svg
+        from Geo_DONet.utils.export_vtu import main as export_vtu
+        from Geo_DONet.utils.export_svg import main as export_svg
         mesh_path = self.root/'canonical.vtu'
         meshio.write_points_cells(mesh_path, self.coords[:, :3],
                                  [('tetra', np.array([[0, 1, 2, 3], [3, 4, 5, 6]]))],
@@ -232,13 +232,16 @@ class WorkflowTests(unittest.TestCase):
 
     def test_configuration_and_storage_contract(self):
         configuration = self.root/'settings.json'
-        configuration.write_text(json.dumps(dict(input='raw.npz', epochs=8, width=12)))
+        configuration.write_text(json.dumps(dict(input='raw.npz', output='runs', epochs=8, width=12)))
         args = parse_config(False, ['--train', '--config', str(configuration), '--epochs', '3'])
         self.assertEqual(args.input, str(self.raw))
+        self.assertEqual(args.output, str(self.root/'runs'))
         self.assertEqual(args.epochs, 3)
         self.assertEqual(args.width, 12)
+        with contextlib.redirect_stderr(io.StringIO()), self.assertRaises(SystemExit):
+            parse_config(False, ['--train', '--input', str(self.raw)])
         with self.assertRaises(ValueError):
-            dated_directory(ROOT/'Geo_DONet_clean/results')
+            dated_directory(ROOT/'Geo_DONet/results')
         a = dated_directory(self.root/'dated')
         b = dated_directory(self.root/'dated')
         self.assertNotEqual(a, b)
@@ -302,7 +305,7 @@ class WorkflowTests(unittest.TestCase):
         ]
         for script, help_flag, expected_group in commands:
             result = subprocess.run(
-                [sys.executable, '-S', str(ROOT/'Geo_DONet_clean'/script), help_flag],
+                [sys.executable, '-S', str(ROOT/'Geo_DONet'/script), help_flag],
                 capture_output=True,
                 text=True,
                 timeout=10,

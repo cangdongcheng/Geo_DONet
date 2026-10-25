@@ -21,7 +21,7 @@ def load_checkpoint(path, device, prepared_manifest=None):
     # These are user-owned experiment checkpoints, which include NumPy states.
     saved = torch.load(path, map_location=device, weights_only=False)
     if saved.get('schema_version') != 1:
-        raise ValueError('Expected a Geo_DONet_clean checkpoint; legacy parity is tested separately')
+        raise ValueError('Expected a Geo_DONet schema-1 checkpoint; legacy parity is tested separately')
     manifest = resolve_prepared_manifest(
         saved['prepared_manifest'], saved['prepared_sha256'], prepared_manifest,
         relative_path=saved.get('prepared_manifest_relative'), anchor=Path(path).resolve().parent,

@@ -104,7 +104,7 @@ def build_parser(preparation=False):
                   'Prepared manifest for train/CV; raw NPZ/manifest for predict')
     files.add_argument('--input', type=Path, metavar='PATH', help=input_help)
     files.add_argument('--output', type=Path, metavar='DIR',
-                       help='Train/prepare: run root; evaluate/predict: exact folder (default: beside checkpoint)')
+                       help='Train/prepare: run root (required); evaluate/predict: exact folder (default: beside checkpoint)')
     files.add_argument('--name', metavar='NAME',
                        help='Readable training/preparation name; evaluation label or prediction cohort name')
     if not preparation:
@@ -242,6 +242,8 @@ def validate_settings(settings, mode, parser):
         parser.error('--input is required (in a config or on the command line)')
     if mode in ('evaluate', 'predict') and not settings['chkpt']:
         parser.error('--chkpt is required for evaluation/prediction')
+    if mode in ('prepare', 'train', 'cv') and not settings['output']:
+        parser.error('--output is required (in a config or on the command line)')
 
 
 def parse_config(preparation=False, argv=None):
@@ -260,8 +262,4 @@ def parse_config(preparation=False, argv=None):
         if settings[key] is not None:
             settings[key] = str(Path(settings[key]).expanduser().resolve())
     validate_settings(settings, mode, parser)
-
-    if settings['output'] is None and mode in ('prepare', 'train', 'cv'):
-        root = '/scratch/e1032484/Geo_DONet_clean'
-        settings['output'] = root + ('/datasets/prepared' if preparation else '/runs')
     return argparse.Namespace(**settings, mode=mode)
